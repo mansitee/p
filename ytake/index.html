@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>YTInfo</title> 
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    	
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+   <meta name="color-scheme" content="light only"> 	
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="description" content="Author: Mansitee. Author,
+    Illustrator: Ytinfo, Category: Books, Price: free,">
+    	
+    <!--========== PWA ==========-->
+    <meta name="theme-color" content="#d7e9ff">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./aset/60.png">
+    <link rel="apple-touch-startup-image" href="./aset/60.png">
+    <link rel="manifest" href="./aset/manifest.json"> 
+    <link rel="stylesheet" href="aset/style.css">
+ </head> 
+<body> <header> <div class="headerflex">  <h1> <coh1> YT</coh1>Info <span> Fast* | NoAds.</span></h1> 
+<div class="search"> <input type="text" id="urlInput"required="" placeholder="Masukan Link Disini: https:// "> <button id="fetchButton" class="sbutton noSelect">Go</button> </div> </div>	
+  
+  <div id="feed-id" class="feed-container noSelect"></div>
+  	
+  
+  <div class="fieldset"> <legend> <b>YTinfo</b>.</legend> <span id="ip">ip</span> 	
+ <span id="country">country</span>
+ <span id="software">software</span>
+ <span id="screen">screen</span>
+ <a href="ytrend.html"> Ytrend</a> </div>  </header>
+  	 
+ 
+<div class="space"> <div id="video-detail" class="video-detail"> <input type="button" onclick="scrollWindow()" value="Scroll" /> </div>
+    
+    
+<div class="content-wrap">   
+<div class="content">
+  <div class="ytsearch"> 
+<input type="text" id="search-input" placeholder="Cari Videonya Disini..."> <button onclick="searchVideos()"class="noSelect">GO</button> </div>
+      
+ <div id="playlist"> <ul id="playlist-items"> </ul> </div>
+ 
+   </div> </div> </div>
+        <script>document.addEventListener("DOMContentLoaded", function() {
+  fetch('https://ipinfo.io/json')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('ip').innerText = `IP : ${data.ip}`;
+      document.getElementById('country').innerText = ` ${data.country}`;
+      document.getElementById('software').innerText = ` Soft : ${data.org}`;
+    })
+    .catch(error => console.error('Error:', error));
+});</script>
+
+<script>function screenSize() {
+  var width = screen.width;
+  var height = screen.height;
+
+  document.getElementById("screen").innerHTML = width + " x " + height;
+}
+
+screenSize();
+
+setInterval(() => {
+  screenSize();
+}, 100);
+</script>
+
+
+
+<script>
+function scrollWindow() {
+  window.scrollTo(0, 100);
+}
+</script> 
+
+
+<script src="aset/main.js"></script>
+<script src="aset/ytake.js"></script>
+<script src="aset/ytsearch.js"></script>
+</body>
+</html>
