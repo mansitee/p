@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>YTInfo</title> 
+    <meta name="description" content="">
+    <meta name="robots" content="index,follow">
+    	
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+   <meta name="color-scheme" content="light only"> 	
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="description" content="Author: Mansitee. Author,
+    Illustrator: Ytinfo, Category: Books, Price: free,">
+    	
+    <!--========== PWA ==========-->
+    <meta name="theme-color" content="#048654">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./assets/img/plate1.png">
+    <link rel="apple-touch-startup-image" href="./assets/img/plate2.png">
+    <link rel="manifest" href="./manifest.json">	
+    	
+    	
+    
+    <style>
+* {margin:0;padding:0;box-sizing: border-box;font-family:Arial, sans-serif;
+-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */}        
+*::-webkit-scrollbar{display:none; /* Safari and Chrome */}
+
+/*===== GOOGLE FONTS =====*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+
+
+  :root {
+  --background: #eff2f9;
+  --foreground: #fff;
+  --text-black: #161f3e;
+  --text-grey: #919191;
+  --primary: #6a74c9;
+  --width:100%;
+  --bgungu:#9575CD;
+  --bgwhite:rgb(255, 255, 255);
+  --bgrgb:rgba(255,255,255,0.6);
+  --bgline:linear-gradient(85deg,#eee1ff 2.5%,#d7e9ff 102.57%);  
+  --bgimg:linear-gradient(to bottom, #d7e9ff, #eee1ff, #D1C4E9);  
+  
+  /*========== box ==========*/
+  --boxs:0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  --boxss:0 2px 40px rgba(0,0,0,.5);
+  
+  /*========== border ==========*/
+   --border:1px solid rgb(203,210,217); }      
+        
+ html{scroll-behavior: smooth;webkit-font-smoothing:auto;text-rendering:optimizeLegibility;}       
+         
+body {transition: .3s; margin:0;display:flex;flex-direction:column;align-items:center;height:auto;min-height: 100vh; -webkit-overflow-scrolling:touch;overflow-x:hidden;background:var(--bgimg);tbackground:var(--bgline);tbackground: -webkit-linear-gradient(-45deg, #8363a1 0%, #74a8c3 100%); tbackground: linear-gradient(135deg, #8363a1 0%, #74a8c3 100%); 
+font-family:
+		system-ui,
+		-apple-system, /* Firefox supports this but not yet `system-ui` */
+		'Segoe UI',
+		Roboto,
+		Helvetica,
+		Arial,
+		sans-serif,
+		'Apple Color Emoji',
+		'Segoe UI Emoji';
+scroll-behavior:smooth;} 
+ 
+::selection { background-color: rgb(255, 229, 209); }
+
+.space{margin:240px 0;width:var(--width);word-break: break-all;z-index:9999;max-width:700px;padding:10px;justify-content:center;align-items: center;left:20%;right:20%;position:static;}
+ 
+ header{position:fixed;padding-top:30px;width:var(--width);justify-content: center;align-items: center;z-index: 2;tbackground:var(--bgline);tbox-shadow:var(--boxs);
+}   
+
+header .headerflex{padding-top:30px;width:var(--width);justify-content: center;align-items: center;z-index: 2;tbackground:var(--bgline);tbox-shadow:var(--boxs);
+}   
+ 
+ 
+ header h1{text-align:center;font-family: "Poppins", sans-serif;color:var(--bgungu);font-size: 25px; font-weight: bold;}
+  
+ header h1 coh1{text-align:center;
+ font: bold 1.2em/1.2 arial,sans-serif;background:var(--bgungu); color:#fff;border-radius:10px;padding:5px;text-shadow:2px 2px #D1C4E9;box-shadow:var(--boxss);} 
+ 
+ header h1 span{text-align:center;color: #333;font-size:15px;}
+ 
+.search{padding:0 30px;justify-content: center;position:relative;display:flex;
+height:3.5rem;width:var(--width);margin:20px 0 10px 0;border-radius:30px;}  
+ 
+         
+.search .sbutton{position:absolute;width:50px;right:35px;top:4px;bottom: 4px;z-index:10;border-radius:4px;background:var(--bgungu);color:#fff; 
+padding-top:.25rem;padding-bottom: .25rem;padding-left:0.1rem;padding-right: 0.1rem;text-align:center;vertical-align: middle;font-size:18px;font-weight:600;
+text-transform:uppercase;border:none;
+transition:.6s ease;}      
+
+.search #fetchButton{border:none;border-radius:30px;cursor:pointer;box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+          
+.search #urlInput {height:100%;width:var(--width);border-radius:30px;border:none;background:var(--bgrgb);padding: 0.625rem 70px 0.625rem 0.75rem;font-size:16px;line-height:1.25rem;font-weight:500;color:rgb(69 90 100);outline: none;transition:all .15s cubic-bezier(0.4,0,0.2,1);box-shadow:var(--boxs);}  
+
+header .fieldset{word-break:break-all; z-index:9999;margin:250px 0;padding:10px;background:var(--bgrgb);border:none;font-family:sans-serif;-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%;border-radius:30px;position:absolute;top:38vh;bottom:20vh;tz-index:-1;left:30px;right:30px;height:80px; }   
+ fieldset a{text-decoration:none;color:var(--bgungu);font-weight:bold;} 
+ fieldset ul,fieldset ol {padding-left:20px;text-decoration:none;color:#333;} 
+ 
+ 
+ legend{color:var(--bgungu);text-align:center;border-radius:50px;tbackground:var(--bgrgb);line-height:60px;}  
+legend b{font-family: 'Press Start 2P', cursive;font-size:46px;text-shadow: 2px 2px var(--bgrgb);} 
+ fieldset h1{text-align:center;color: #333;font-size: 13px; tpadding-top: 150px;font:bold 1.2em/1.2 arial,sans-serif;}
+   
+
+/* Gaya untuk kontainer belanja */
+.feed-container{display:flex;overflow-x:auto;gap:10px;width:var(--width);padding:10px; word-break:break-all;z-index:9999;align-content:start;overflow-x:scroll;scroll-snap-type: x mandatory;overflow:auto;overflow-x:scroll;overflow-y: hidden;scroll-behavior:smooth;}
+
+.feed-card{flex:0 0 auto;width:100px;border-radius:10px;text-decoration:none;color:#333;scroll-snap-align: end;-webkit-overflow-scrolling:touch;box-shadow:var(--boxs);}
+
+.feed-card:hover {transform: translateY(-5px);}
+ 
+.feed-card img {width:var(--width); /* or tmax-width: 100%; */height:auto; border-radius:10px;cursor:pointer;}
+.feed-card img:hover{background: transparent;}
+.feed-info p {margin: 0;}
+   
+        /* Gaya untuk detail video */    .video-detail{width:var(--width);padding:10px;margin:10px 0;border-radius:30px 30px 10px 10px;display:none;word-break:break-all; z-index:9999;text-align:center;font-family:"Poppins", sans-serif;color: #333;background-color:#fff;padding-bottom:30px;box-shadow:0 0 10px rgba(0,0,0,0.1);scroll-behavior:smooth;}      
+        
+.video-detail img {max-width:100%;height:auto;width:50%;border-radius:30px;left:10%;right:0%;justify-content:center;box-shadow:0 4px 8px rgba(0,0,0,0.3); }
+ 
+.video-title {font-weight:bold;font-size: 18px;margin-bottom:10px;border-bottom: 2px solid #ccc;padding-bottom:5px;width: fit-content;flex-grow: 1;}                  
+        
+.video-description{margin-bottom:10px; display:none;}        
+.video-thumbnail{width:var(--width);height:120px;margin-bottom:10px;border-radius:10px;box-shadow:var(--boxss);background:url(banner.png) round;}
+
+.video-url{word-break:break-all;margin-bottom:10px;text-decoration:none;}
+         
+.video-info-card {display: grid;grid-template-columns:auto auto;gap:10px;
+border:1px solid #ccc;border-radius:5px;padding:10px;margin-bottom:10px;color: #333;}            
+        
+.video-info-item{display:flex;flex-direction:column;align-items:center;}
+
+.download-link {margin-top:10px;box-shadow:0 4px 8px rgba(0,0,0,0.3);text-decoration: none;}
+
+
+
+
+.formats-box{display:grid;grid-template-columns:auto auto auto auto;gap:5px;padding:5px;justify-content: center;z-index: 99991);} 
+        
+.card-item {tborder:1px solid #333;border-radius:10px;padding:10px;margin-bottom: 10px;font-size:12px;cursor:pointer;width: 80px;word-break: break-all;box-shadow:0 0 10px rgba(0,0,0,0.1);text-align:center;font-family:"Poppins", sans-serif;color: #333;}       
+.card-item a{text-decoration:none;box-shadow:0 4px 8px rgba(0,0,0,0.3);border-radius:5px;padding:3px;background:var(--bgungu);color:var(--bgwhite);}
+ 
+.item-label {tfont-weight:bold;font-size: 15px;text-decoration:none;} 
+ 
+
+.content-wrap{border-radius:10px;tpadding:10px;width:var(--width);align-items:center;justify-content: center;left:0;bottom:0;z-index:100;}
+ 
+.content{padding-top:20px;border-radius:10px;padding:10px;font-size:16px;width:var(--width);word-break: break-all;text-align:center;font-family:"Poppins", sans-serif;color: #333;}      
+   
+ 
+   
+ @media (min-width: 768px) {
+ body {transition: .3s; margin:0;display:flex;flex-direction:column;align-items:center; -webkit-overflow-scrolling:touch;overflow-x:hidden; font-family: 'Open Sans', sans-serif;}
+   
+ header{position:fixed;padding-top:150px;width:var(--width);justify-content: center;align-items: center;}  
+ 
+
+  
+.search{padding:0 30px;justify-content: center;position:relative;display:flex;
+height:3.5rem;width:60%;left:20%;right:20%;margin:20px 0;border-radius:30px;tbackground:var(--bgwhite);}  
+
+.space{margin:38vh 0;twidth:var(--width);width:100%;word-break: break-all;z-index:9999;max-width:1200px;}
+  
+.feed-container{display:grid;grid-template-columns:auto auto auto auto auto;gap:15px;overflow-x:auto;width:var(--width);padding:50px; word-break:break-all;z-index:9999;align-content:start;overflow-x:scroll;scroll-snap-type: x mandatory;overflow:auto;overflow-x:scroll;overflow-y: hidden;justify-content: center;}
+
+.ytsearch {color:white;padding:5px;text-align:center;display:flex;tmargin:20px 0;tposition:relative;top:30vh;tz-index:-1; justify-content:center;align-items: center;twidth:60%;left:20%;right:20%; twidth:var(--width);justify-content: center;align-items: center;} 
+ 
+#playlist-items{padding:0px;border-radius:30px;display:grid;grid-template-columns:auto auto auto auto;}
+}   
+
+
+ /* Gaya untuk YT search */  
+.ytsearch {color:white;padding:5px;text-align:center;display:flex;margin:20px 0;tposition:fixed;bottom:0vh;z-index:-1;left:0;right:0;height:10%;justify-content:center;align-items: center;left:30px;right:30px;border-radius:30px;tbox-shadow:var(--boxs);background:var(--bgwhite);} 
+ 
+.ytsearch input[type="text"] {padding: 15px;
+font-size: 16px;border: none;border-radius: 50px;background:var(--bgline);color:var(--bgungu);width:var(--width);}       
+            
+.ytsearch button {padding:15px 5px;
+font:bold 1.0em/1.2 arial,sans-serif; width:70px;background:var(--bgungu);color: var(--bgwhite);border:none;border-radius:50px;cursor:pointer;}
+ 
+   /* Gaya untuk YT search Playlist */  
+#playlist{padding:0px;border-radius:30px;}
+#playlist h2 {margin-top:0;}       
+#playlist-items{list-style-type:none;
+padding:0;margin:0px;background:var(--bgwhite);border-radius:10px;}
+.video-item{display:flex;align-items: center;padding:10px;border-bottom:1px solid #ddd;cursor:pointer;}
+.thumbnail {width:100px;height:80px;margin-right:10px;border-radius:10px;}
+.title-and-link-container{display:flex;
+flex-direction:column;flex-grow:1;}
+.video-title {font-size:16px;font-weight: bold;margin-bottom: 5px;}
+.copy-link-button {background:var(--bgungu);color:white;border:none;border-radius:10px;padding:8px 16px;cursor:pointer;
+font-size: 14px;font-weight:bold;}
+.copy-link-button:hover{background-color: #D1C4E9;color:var(--bgungu);} 
+ 
+
+
+#playlist-items, .noSelect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color:transparent;}
+
+code,
+kbd,
+samp,
+pre {
+  font-family:
+		ui-monospace,
+		SFMono-Regular,
+		Consolas,
+		'Liberation Mono',
+		Menlo,
+		monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+</style> </head> 
+<body> <header> <div class="headerflex">  <h1> <coh1> YT</coh1>Info <span> Fast* | NoAds.</span></h1> 
+<div class="search"> <input type="text" id="urlInput"required="" placeholder="Masukan Link Disini: https:// "> <button id="fetchButton" class="sbutton noSelect">Go</button> </div> </div>	
+  
+  <div id="feed-id" class="feed-container noSelect"></div>
+  	
+  
+  <div class="fieldset"> <legend> <b>YTinfo</b>.</legend>
+	 </div>
+	 
+  </header>
+  
+  
+  
+ 
+	 
+ 
+<div class="space"> <div id="video-detail" class="video-detail"> </div>
+    
+    
+<div class="content-wrap">   
+<div class="content">
+  <div class="ytsearch"> 
+<input type="text" id="search-input" placeholder="Cari Videonya Disini..."> <button onclick="searchVideos()"class="noSelect">GO</button> </div>
+      
+ <div id="playlist"> <ul id="playlist-items"> </ul> </div>
+ 
+   </div> </div> </div>
+    <script>
+        const shoppingData = [
+            {
+                id: "UiR6-kzyfH8",
+                link: "#"
+            },
+            {
+                id: "9Z7jFHrk8Hk",
+                link: "#"
+            },
+            {
+                id: "X-G2_IRzH2o",
+                link: "#"
+            }, 
+            {
+                id: "Bo8tCRRp5EI",
+                link: "#"
+            },{
+                id: "x-aHM2RcL6k",
+                link: "#"
+            }, 
+            {
+                id: "ir8UGPUn1hs",
+                link: "#"
+            },{
+                id: "vM9cnp_JDIA",
+                link: "#"
+            },
+            {
+                id: "_25DTNEFue4",
+                link: "#"
+            },        
+             {
+                id: "mV4-KkNK7gg",
+                link: "#"
+            },
+            {
+                id: "RlvZlh_GVw4",
+                link: "#"
+            },
+            {
+                id: "W_8mBam6fJc",
+                link: "test.html?q={id}"
+            },{
+                id: "aTtSBMOpCR8",
+                link: "test.html?q={id}"
+            },{
+                id: "RS3IviDEdGc",
+                link: "#"
+            },{
+                id: "cNmc0PmvxAw",
+                link: "#"
+            },{
+                id: "8tg6yjnDul0",
+                link: "#"
+            },
+            {
+                id: "wu0srWaayt4",
+                link: "#"
+            },
+            {
+                id: "0bps6RiVyN0",
+                link: "#"
+            },
+            {
+                id: "9x7PhNC047Q",
+                link: "#"
+            },{
+                id: "E89ZagZdwEE",
+                link: "#"
+            },{
+                id: "DbJpWaKsrJ8",
+                link: "#"
+            },
+            {
+                id: "PdHwq8W0dr8",
+                link: "#"
+            },
+            {
+                id: "u64eVPS7IMA",
+                link: "#"
+            },{
+                id: "E89ZagZdwEE",
+                link: "#"
+            },
+            {
+                id: "PdHwq8W0dr8",
+                link: "#"
+            },
+            {
+                id: "dHPojWhaXDc",
+                link: "#"
+            },{
+                id: "ulGz_10_HAE",
+                link: "#"
+            },
+            {
+                id: "n1TV1gORcc0",
+                link: "#"
+            },
+            {
+                id: "u64eVPS7IMA",
+                link: "#"
+            },
+        ];
+
+        function loadShoppingCards(data) {
+            const shoppingContainer = document.getElementById('feed-id');
+            data.forEach(item => {
+                const card = document.createElement('a');
+                card.className = 'feed-card';
+                card.href = item.link;
+
+                // Add click event listener to the card
+                card.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior
+                    fetchYouTubeInfo(item.id); // Fetch YouTube info based on the video ID
+                });
+
+                card.innerHTML = `
+                    <img src="https://i.ytimg.com/vi/${item.id}/hqdefault.jpg" alt="${item.id}"width="100%" height="auto"loading="lazy"alt="${item.id}/ytinfo">
+                `;
+                shoppingContainer.appendChild(card);
+            });
+        }
+
+        function fetchYouTubeInfo(videoId) {
+            const ytInfoURL = 'https://ytinfo.vercel.app/get?video=' + videoId;
+
+            fetch(ytInfoURL)
+                .then(response => response.json())
+                .then(data => {
+                    displayVideoDetail(data); // Display video detail below the shopping container
+                })
+                .catch(error => {
+                    alert('Error fetching YouTube info: ' + error);
+                });
+        }
+
+        function displayVideoDetail(videoData) {
+            const videoDetailContainer = document.getElementById('video-detail');
+            videoDetailContainer.innerHTML = ''; // Clear previous content
+
+            const thumbnail = document.createElement('img');
+            thumbnail.src = videoData.videoDetails.thumbnails[0].url;
+            thumbnail.alt = videoData.videoDetails.title;
+            thumbnail.classList.add('video-thumbnail');
+            videoDetailContainer.appendChild(thumbnail);
+
+            const title = document.createElement('h3');
+            title.textContent = videoData.videoDetails.title;
+            title.classList.add('video-title');
+            videoDetailContainer.appendChild(title);
+
+            
+            
+            
+            
+            const description = document.createElement('div');
+            description.classList.add('video-description');
+            const descriptionTitle = document.createElement('h4');
+            descriptionTitle.textContent = 'Deskripsi:';
+            description.appendChild(descriptionTitle);
+
+            // Split description text into paragraphs if there are multiple links
+            const paragraphs = videoData.videoDetails.description.split('\n');
+            paragraphs.forEach(paragraph => {
+                const p = document.createElement('p');
+                const linksRegex = /(?:https?|ftp):\/\/[\n\S]+/g;
+                const links = paragraph.match(linksRegex);
+
+                if (links && links.length > 0) {
+                    const textWithoutLinks = paragraph.replace(linksRegex, '');
+                    p.textContent = textWithoutLinks;
+
+                    links.forEach(link => {
+                        const a = document.createElement('a');
+                        a.href = link;
+                        a.textContent = link;
+                        a.target = '_blank';
+                        a.rel = 'noopener noreferrer';
+                        const br = document.createElement('br');
+                        description.appendChild(br);
+                        description.appendChild(a);
+                    });
+                } else {
+                    p.textContent = paragraph;
+                }
+
+                description.appendChild(p);
+            });
+
+            videoDetailContainer.appendChild(description);
+
+            // Add download link and format info if available
+if (videoData.formats && videoData.formats.length > 0) {
+                const formatsContainer = document.createElement('div');
+                formatsContainer.classList.add('formats-box');
+                videoData.formats.forEach(format => {
+                    const cardItem = document.createElement('div');
+                    cardItem.classList.add('card-item');
+
+                    const itemLabel = document.createElement('div');
+                    itemLabel.textContent = `${format.container}, ${format.qualityLabel || format.audioQuality || 'Unknown Quality'}`;
+                    itemLabel.classList.add('item-label');
+                    cardItem.appendChild(itemLabel);
+
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = format.url;
+                    downloadLink.textContent = 'Download';
+                    downloadLink.setAttribute('download', '');
+                    cardItem.appendChild(downloadLink);
+
+                    formatsContainer.appendChild(cardItem);
+                });
+                videoDetailContainer.appendChild(formatsContainer);
+            }
+
+            // Show the video detail container
+            videoDetailContainer.style.display = 'block';
+        }
+
+        // Load the shopping cards
+        loadShoppingCards(shoppingData);
+
+        document.getElementById('fetchButton').addEventListener('click', function () {
+            var urlInput = document.getElementById('urlInput').value;
+            var videoId = new URL(urlInput).searchParams.get('v');
+
+            if (!videoId) {
+                alert('Please enter a valid YouTube video URL.');
+                return;
+            }
+
+            fetchYouTubeInfo(videoId);
+        });
+        
+ // Otomatis tampilkan data saat URL ditempelkan atau diketik
+document.getElementById('urlInput').addEventListener('input', function () {
+    var urlInput = document.getElementById('urlInput').value;
+    var videoId = new URL(urlInput).searchParams.get('v');
+
+    if (videoId) {
+        fetchYouTubeInfo(videoId);
+    }
+});       
+        
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", function() {
+  fetch('https://ipinfo.io/json')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('ip-address').innerText = `IP : ${data.ip}`;
+      document.getElementById('country').innerText = ` ${data.country}`;
+      document.getElementById('software').innerText = ` Soft : ${data.org}`;
+    })
+    .catch(error => console.error('Error:', error));
+});</script>
+
+
+
+<script>function screenSize() {
+  var width = screen.width;
+  var height = screen.height;
+
+  document.getElementById("screen").innerHTML = width + " x " + height;
+}
+
+screenSize();
+
+setInterval(() => {
+  screenSize();
+}, 100);
+</script>
+
+
+<script>
+        function searchVideos() {
+    const searchQuery = document.getElementById('search-input').value;
+    const apiKey = 'AIzaSyDooaKG0vu4eWexLT-MlUVPpzXP8qqpfp4';
+    const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=150&q=${searchQuery}&key=${apiKey}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            displayVideos(data.items);
+        })
+        .catch(error => console.error('Error:', error));
+} 
+function displayVideos(videos) {
+    const playlistItems = document.getElementById('playlist-items');
+    playlistItems.innerHTML = '';
+
+    videos.forEach(video => {
+        const title = video.snippet.title;
+        const videoId = video.id.videoId;
+        const thumbnailUrl = video.snippet.thumbnails.medium.url;
+        const viewCount = video.statistics ? video.statistics.viewCount : 'N/A'; // Pastikan viewCount tersedia
+
+        const listItem = document.createElement('li');
+        listItem.classList.add('video-item');
+
+        const thumbnail = document.createElement('img');
+        thumbnail.src = thumbnailUrl;
+        thumbnail.alt = title;
+        thumbnail.classList.add('thumbnail');
+        listItem.appendChild(thumbnail);
+
+        const titleAndLinkContainer = document.createElement('div');
+        titleAndLinkContainer.classList.add('title-and-link-container');
+
+        const titleElement = document.createElement('div');
+        titleElement.textContent = title;
+        titleElement.classList.add('video-title');
+        titleAndLinkContainer.appendChild(titleElement);
+        // Copy link button
+        const copyLinkButton = document.createElement('button');
+        copyLinkButton.textContent = 'Salin Link';
+        copyLinkButton.classList.add('copy-link-button');
+        copyLinkButton.onclick = function() {
+            copyVideoLink(videoId);
+        };
+        titleAndLinkContainer.appendChild(copyLinkButton);
+
+        listItem.appendChild(titleAndLinkContainer);
+
+        listItem.onclick = function() {
+            playVideo(videoId);
+        };
+
+        playlistItems.appendChild(listItem);
+    });
+}
+
+
+
+function playVideo(videoId) {
+    const player = document.getElementById('player');
+    player.src = `https://www.youtube.com/embed/${videoId}`;
+}
+
+function copyVideoLink(videoId) {
+    const youtubeLink = `https://www.youtube.com/watch?v=${videoId}`;
+    navigator.clipboard.writeText(youtubeLink).then(() => {
+        alert('Link Berhasil Di Salin!');
+    }).catch(err => {
+        console.error('Gagal Menyalin link: ', err);
+    });
+}  
+
+</script>
+
+</body>
+</html>

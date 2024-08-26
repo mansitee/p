@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Info with Floating Card</title>
+    <style>
+       body {
+      font-family: Arial, sans-serif;
+      background-color: rgb(71, 71, 71);
+      background:#f2f2f2;
+      margin:0;
+      padding:5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    } 
+   .search {
+            position: fixed;
+            top: 10px;
+            tdisplay: grid;
+            tgrid-template-columns: 80% 50%;
+            gap:5px;
+            padding: 10px 20px;
+        }
+        button{
+            padding: 11px 10px;
+            font-size: 16px;
+            background-color: #2196F3;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width:50%;
+        }
+        #fetchButton {
+            padding: 11px 10px;
+            font-size: 16px;
+            background-color: #2196F3;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width:20%;
+            right:60px;
+        }
+        #urlInput {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 70%;
+        }
+        
+        #floatingCard {
+            tposition: fixed;
+            top: 100px; /* Sesuaikan jarak dari atas */
+            left: 0px; /* Sesuaikan jarak dari kiri */
+            margin:80px 0;
+            z-index: 9999;
+            background-color: #FFFFFF;
+            tbackground-color: rgb(71, 71, 71);
+  
+            tpadding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Sembunyikan awalnya */
+            width: 100%;
+            tmax-width: 95%; /* Batasi lebar */
+            overflow-y: auto; /* Aktifkan scroll jika terlalu panjang */
+            overflow: hidden; /* Sembunyikan overflow */
+            tborder: 1px solid #ccc; /* Border 1px */
+        }
+
+        /* Gaya untuk item kartu */
+        .card-item {
+            tborder: 1px solid #333; /* Border 1px */
+            border-radius:10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            cursor: pointer;
+            width: 51px;
+            word-break: break-all;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);text-align: center;
+	font-family: "Poppins", sans-serif;
+
+            color:#333;}
+        /* Gaya untuk label item kartu */
+        .item-label {
+            font-weight: bold;
+            font-size:18px;
+        }
+
+        /* Gaya untuk judul video */
+        .video-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ccc; /* Garis bawah */
+            padding-bottom: 5px; /* Ruang di bawah judul */
+            width: fit-content; /* Lebar sesuai konten */
+        }
+
+        /* Gaya untuk deskripsi video */
+        .video-description {
+            margin-bottom: 10px;
+        }
+ 
+        /* Gaya untuk thumbnail video */
+        .video-thumbnail {
+            max-width:100%;
+            height:120px;
+            margin-bottom: 10px;
+            border-radius: 10px; /* Sudut bulat */ 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Bayangan */
+        }
+
+        /* Gaya untuk URL video */
+        .video-url {
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+
+        /* Kontainer untuk informasi video */
+        .video-info-card {
+            display: grid;
+            grid-template-columns: auto auto; /* Tampilkan dalam 3 kolom */
+            gap: 10px; /* Jarak antara item */
+            tborder: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            color:#333;
+        }
+
+        /* Gaya untuk item dalam grid informasi video */
+        .video-info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Kontainer untuk item kartu format video dan audio */
+        .formats-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto; /* Tampilkan dalam 3 kolom */
+            gap: 5px; /* Jarak antara item */
+            padding: 10px;
+        }
+    </style>
+</head> 
+<body>
+    <div class="search">
+        <input type="text" id="urlInput" class="tsearch-input" placeholder="Enter YouTube video URL">
+        <button id="fetchButton" class="search-button">Lihat</button>
+    </div>  
+    
+    <div id="floatingCard"></div>
+
+    <script>
+        // Fungsi untuk menampilkan hasil dalam bentuk kartu melayang
+        function showResultCard(data, inputUrl) {
+            // Bersihkan isi kartu sebelum menambahkan hasil baru
+            const floatingCard = document.getElementById('floatingCard');
+            floatingCard.innerHTML = '';
+
+            // Buat kartu informasi video
+            var videoInfoCard = document.createElement('div');
+            videoInfoCard.classList.add('video-info-card');
+
+            // Buat elemen item untuk grid informasi video
+            var thumbnailItem = document.createElement('div');
+            thumbnailItem.classList.add('video-info-item');
+            var thumbnail = document.createElement('img');
+            thumbnail.src = data.videoDetails.thumbnails[data.videoDetails.thumbnails.length - 1].url;
+            thumbnail.classList.add('video-thumbnail');
+            thumbnailItem.appendChild(thumbnail);
+
+            var titleItem = document.createElement('div');
+            titleItem.classList.add('video-info-item');
+            var title = document.createElement('div');
+            title.textContent = 'Title: ' + (data.videoDetails.title || 'Unknown');
+            title.classList.add('video-title');
+            titleItem.appendChild(title);
+
+            var descriptionItem = document.createElement('div');
+            descriptionItem.classList.add('video-info-item');
+            var description = document.createElement('div');
+            description.textContent = 'Desc: ' + (data.videoDetails.shortDescription || 'No description available');
+            description.classList.add('video-description');
+            descriptionItem.appendChild(description);
+
+            var urlItem = document.createElement('div');
+            urlItem.classList.add('video-info-item');
+            var videoURL = document.createElement('div');
+            var videoId = new URL(inputUrl).searchParams.get('v');
+            videoURL.innerHTML = 'URL ID: <a href="https://www.youtube.com/watch?v=' + videoId + '" target="_blank">' + videoId + '</a>';
+            videoURL.classList.add('video-url');
+            urlItem.appendChild(videoURL);
+
+            // Tambahkan item ke dalam kartu informasi video
+            videoInfoCard.appendChild(thumbnailItem);
+            videoInfoCard.appendChild(titleItem);
+            videoInfoCard.appendChild(descriptionItem);
+            videoInfoCard.appendChild(urlItem);
+
+            // Tambahkan kartu informasi video ke kontainer melayang
+            floatingCard.appendChild(videoInfoCard);
+
+            // Buat kontainer untuk item kartu format
+            var formatsContainer = document.createElement('div');
+            formatsContainer.classList.add('formats-container');
+
+            // Fungsi untuk membuat item kartu
+            function createCardItem(label, format) {
+                var cardItem = document.createElement('div');
+                cardItem.classList.add('card-item');
+
+                var itemLabel = document.createElement('div');
+                itemLabel.textContent = label;
+                itemLabel.classList.add('item-label');
+                cardItem.appendChild(itemLabel);
+
+                var itemValue = document.createElement('div');
+                itemValue.textContent = `${format.qualityLabel || format.audioQuality || 'Unknown'} | ${format.container}`;
+                cardItem.appendChild(itemValue);
+
+                // Tambahkan event listener untuk mengunduh saat kartu diklik
+                cardItem.addEventListener('click', function() {
+                    window.open(format.url, '_blank');
+                });
+
+                formatsContainer.appendChild(cardItem);
+            }
+
+            // Loop melalui setiap format video dan buat item kartu untuk itu
+            data.formats.forEach(format => {
+                if (format.mimeType.includes('video')) {createCardItem('Video', format);
+                } else if (format.mimeType.includes('audio')) {
+                    createCardItem('Audio', format);
+                }
+            });
+
+            // Tambahkan kontainer format ke kontainer melayang
+            floatingCard.appendChild(formatsContainer);
+
+            // Tampilkan kartu melayang
+            floatingCard.style.display = 'block';
+        }
+
+        // Fungsi untuk mengambil data dari API
+        function fetchYouTubeInfo(videoId, inputUrl) {
+            var ytInfoURL = 'https://ytinfo.vercel.app/get?video=' + videoId;
+
+            fetch(ytInfoURL)
+                .then(response => response.json())
+                .then(data => {
+                    showResultCard(data, inputUrl);
+                    document.getElementById('fetchButton').textContent = 'X';
+                })
+                .catch(error => {
+                    alert('Error fetching YouTube info: ' + error);
+                });
+        }
+
+        // Event listener untuk menampilkan atau menyembunyikan kartu saat tombol diklik
+        document.getElementById('fetchButton').addEventListener('click', function() {
+            var urlInput = document.getElementById('urlInput').value;
+            var videoId = new URL(urlInput).searchParams.get('v');
+
+            if (!videoId) {
+                alert('Please enter a valid YouTube video URL.');
+                return;
+            }
+
+            var floatingCard = document.getElementById('floatingCard');
+
+            if (floatingCard.style.display === 'block') {
+                floatingCard.style.display = 'none';
+                document.getElementById('fetchButton').textContent = 'Get';
+            } else {
+                fetchYouTubeInfo(videoId, urlInput);
+            }
+        });
+
+        // Event listener untuk mengambil data saat URL ditempelkan atau diketik
+        document.getElementById('urlInput').addEventListener('input', function() {
+            var urlInput = document.getElementById('urlInput').value;
+            var videoId = new URL(urlInput).searchParams.get('v');
+
+            if (videoId) {
+                fetchYouTubeInfo(videoId, urlInput);
+            }
+        });
+    </script>
+</body>
+</html>

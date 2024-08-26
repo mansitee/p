@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="description" content="Author: Mansitee. Author,
+    Illustrator: Ytinfo, Category: Books, Price: free,">	
+    <title>YouTube Downloader</title>
+    <style>body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(85deg, #eee1ff 2.5%, #d7e9ff 102.57%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #333;
+}
+
+.search { 
+    display: flex;
+    position: fixed;
+    top: 20px; left:0;
+    right:0; align-items: center;
+    width:100%;
+    max-width: 800px;
+    padding:5px;
+    margin:0;
+    z-index: 1000;
+    tbackground: #ffffff;
+    tbox-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+} 
+ 
+.search button {
+    padding: 11px 20px;
+    font-size: 18px;
+    background: #9575cd;
+    color: #ffffff;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search button:hover {
+    background: #b39ddb;
+}
+
+#searchQuery {
+    width:100%;
+    max-width: 600px;
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 20px 0 0 20px;
+    font-size: 16px;
+}
+
+.wrap {
+    margin: 0;
+    padding: 10px;
+    margin-top: 80px;
+    z-index: 9999;
+    background: linear-gradient(85deg, #eee1ff 2.5%, #d7e9ff 102.57%);
+}
+
+#results {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.result-item {
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    word-break: break-all;
+}
+
+.result-item:hover {
+    background: #f1f1f1;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 90px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.video-info {
+    flex-grow: 1;
+}
+
+.video-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.video-description {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.video-views {
+    color: #9575cd;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.copy-button,
+.share-button {
+    background-color: #9575cd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.copy-button:hover,
+.share-button:hover {
+    background-color: #b39ddb;
+}
+
+.footer {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    right:0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    border-radius:20px 20px 0 0;
+    background: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer .menuu {
+    padding: 11px 20px;
+    font-size: 18px;
+    background: #ffffff;
+    color: #9575cd;
+    border: none;
+    border-radius: 20px 0 0 0;
+    cursor: pointer;
+    max-width: 100%;
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.footer button {
+    padding: 11px 20px;
+    font-size: 18px;
+    background: #9575cd;
+    color: #ffffff;
+    border: none;
+    border-radius:20px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    /* Styles for tablets and larger devices */
+    .search {
+        top: 30px;
+        padding: 15px;
+        margin:10px;
+    }
+
+    .search button {
+        padding: 12px 25px;
+        font-size: 20px;
+    }
+
+    #searchQuery {
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    .result-item {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .thumbnail {
+        width: 120px;
+        height: 100px;
+    }
+
+    .video-title {
+        font-size: 16px;
+    }
+
+    .video-description {
+        font-size: 14px;
+    }
+
+    .video-views {
+        font-size: 16px;
+    }
+
+    .copy-button,
+    .share-button {
+        padding: 8px 15px;
+        font-size: 16px;
+    }
+
+    .footer .menuu {
+        padding: 12px 25px;
+        font-size: 20px;
+    }
+
+    .footer button {
+        padding: 12px 25px;
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Styles for desktops */
+    .search {
+        top: 40px;
+        padding: 20px;
+        margin:10px;
+    }
+
+    .search button {
+        padding: 15px 30px;
+        font-size: 22px;
+    }
+
+    #searchQuery {
+        padding: 15px;
+        font-size: 20px;
+    }
+
+    .result-item {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .thumbnail {
+        width: 140px;
+        height: 120px;
+    }
+
+    .video-title {
+        font-size: 18px;
+    }
+
+    .video-description {
+        font-size: 16px;
+    }
+
+    .video-views {
+        font-size: 18px;
+    }
+
+    .copy-button,
+    .share-button {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    .footer .menuu {
+        padding: 15px 30px;
+        font-size: 22px;
+    }
+
+    .footer button {
+        padding: 15px 30px;
+        font-size: 22px;
+    }
+}
+    </style>
+</head>
+<body>
+	
+    
+ <div class="search">   <input type="text" id="searchQuery" list="suggestions" placeholder="Search YouTube">
+    <datalist id="suggestions">
+        <!-- List of suggestions -->
+        <option value="Music videos">
+        <option value="Movie">
+        <option value="Sejarah">	
+        <option value="Indonesia">	
+        <option value="Funny cat videos">
+        <option value="How-to tutorials">
+        <option value="Travel vlogs">
+        <option value="Tech reviews">
+    </datalist>
+    <button onclick="searchYouTube()">Search</button>
+      </div>   
+    	
+  
+    
+    <div class="wrap">
+    <div id="results"></div>
+ <div class="footer">
+    <a class="menuu"href="yttake.html"> YTDownload</a> 		
+ 	<button onclick="nextPage()">Next</button>
+ </div>     
+    
+</div>
+    <script>
+        const YOUTUBE_API_KEY = 'AIzaSyDooaKG0vu4eWexLT-MlUVPpzXP8qqpfp4';
+let nextPageToken = '';
+
+async function searchYouTube() {
+    const query = document.getElementById('searchQuery').value;
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&part=snippet&type=video&maxResults=20&key=${YOUTUBE_API_KEY}`);
+    const data = await response.json();
+    nextPageToken = data.nextPageToken;
+
+    // Fetch video details to get view counts
+    const videoIds = data.items.map(item => item.id.videoId).join(',');
+    const detailsResponse = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoIds}&part=statistics&key=${YOUTUBE_API_KEY}`);
+    const detailsData = await detailsResponse.json();
+
+    displayResults(data.items, detailsData.items);
+}
+
+async function nextPage() {
+    if (!nextPageToken) return;
+    const query = document.getElementById('searchQuery').value;
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&part=snippet&type=video&maxResults=20&pageToken=${nextPageToken}&key=${YOUTUBE_API_KEY}`);
+    const data = await response.json();
+    nextPageToken = data.nextPageToken;
+
+    // Fetch video details to get view counts
+    const videoIds = data.items.map(item => item.id.videoId).join(',');
+    const detailsResponse = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoIds}&part=statistics&key=${YOUTUBE_API_KEY}`);
+    const detailsData = await detailsResponse.json();
+
+    displayResults(data.items, detailsData.items);
+}
+
+function displayResults(items, details) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '';
+    items.forEach((item, index) => {
+        const videoElement = document.createElement('div');
+        videoElement.classList.add('result-item');
+
+        const thumbnail = document.createElement('img');
+        thumbnail.src = item.snippet.thumbnails.medium.url;
+        thumbnail.alt = item.snippet.title;
+        thumbnail.classList.add('thumbnail');
+        videoElement.appendChild(thumbnail);
+
+        const videoInfo = document.createElement('div');
+        videoInfo.classList.add('video-info');
+
+        const videoTitle = document.createElement('div');
+        videoTitle.classList.add('video-title');
+        videoTitle.textContent = item.snippet.title;
+        videoInfo.appendChild(videoTitle);
+
+        const videoDescription = document.createElement('div');
+        videoDescription.classList.add('video-description');
+        videoDescription.textContent = item.snippet.description;
+        videoInfo.appendChild(videoDescription);
+
+        const videoViews = document.createElement('div');
+        videoViews.classList.add('video-views');
+        videoViews.textContent = `Views: ${formatViewCount(details[index].statistics.viewCount)}`;
+        videoInfo.appendChild(videoViews);
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('button-container');
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.gap = '10px';
+
+        const copyButton = document.createElement('button');
+        copyButton.textContent = 'Copy Link';
+        copyButton.classList.add('copy-button');
+        copyButton.onclick = () => copyVideoLink(item.id.videoId);
+        buttonContainer.appendChild(copyButton);
+
+        const shareButton = document.createElement('button');
+        shareButton.textContent = 'Share';
+        shareButton.classList.add('share-button');
+        shareButton.onclick = () => shareVideoLink(item.id.videoId);
+        buttonContainer.appendChild(shareButton);
+
+        videoInfo.appendChild(buttonContainer);
+        videoElement.appendChild(videoInfo);
+        resultsDiv.appendChild(videoElement);
+    });
+}
+
+function formatViewCount(viewCount) {
+    if (viewCount >= 1000000) {
+        return (viewCount / 1000000).toFixed(1) + 'M';
+    } else if (viewCount >= 1000) {
+        return (viewCount / 1000).toFixed(1) + 'K';
+    } else {
+        return viewCount;
+    }
+}
+
+function copyVideoLink(videoId) {
+    const youtubeLink = `https://www.youtube.com/watch?v=${videoId}`;
+    navigator.clipboard.writeText(youtubeLink).then(() => {
+        alert('Link copied successfully!');
+    }).catch(err => {
+        console.error('Failed to copy link: ', err);
+    });
+}
+
+function shareVideoLink(videoId) {
+    const youtubeLink = `https://ytinfo.vercel.app/get?video=${videoId}`;
+    window.open(youtubeLink, '_blank');
+}
+    </script>
+</body>
+</html>

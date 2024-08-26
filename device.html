@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Browser & Device Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+        .info-item {
+            margin-bottom: 5px;
+        }
+        
+        
+    .status {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .online {
+      color: green;
+    }
+
+    .offline {
+      color: red;
+    }
+    </style>
+</head>
+<body>
+	
+	<div class="status">
+      <p>Status: <span id="status" class="info"></span></p>
+    </div>
+ 
+     
+    
+    <h2>Browser Info:</h2>
+    <div class="info-item">Browser Name: <span id="browser-name"></span></div>
+    <div class="info-item">Browser Version: <span id="browser-version"></span></div>
+
+    <h2>Device Info:</h2>
+    <div class="info-item">• Device: <span id="device"></span> • Type: <span id="device-type"></span> • Brand: <span id="device-brand"></span> • Model: <span id="device-model"></span> • Device Width: <span id="device-width"></span> X <span id="device-height"></span></div>
+    
+    
+    <h2>Location Info:</h2>
+    <div class="info-item">IP Address: <span id="ip-address"></span></div>
+    <div class="info-item">Host: <span id="host"></span></div>
+    <div class="info-item">ISP: <span id="isp"></span></div>
+    <div class="info-item">Country: <span id="country"></span></div>
+
+    
+ 
+    <script>
+        // Browser Info
+        document.getElementById('browser-name').innerText = navigator.userAgent;
+        document.getElementById('browser-version').innerText = navigator.appVersion;
+
+        // Device Info
+        document.getElementById('device-type').innerText = navigator.platform;
+        document.getElementById('device-brand').innerText = navigator.vendor;
+        document.getElementById('device-model').innerText = navigator.product;
+        document.getElementById('device-width').innerText = screen.width;
+        document.getElementById('device-height').innerText = screen.height;
+
+        // Location Info
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip-address').innerText = data.ip;
+                document.getElementById('host').innerText = data.hostname;
+                document.getElementById('isp').innerText = data.org;
+                document.getElementById('country').innerText = data.country_name;
+            })
+            .catch(error => console.error('Error fetching location info:', error));
+            
+            
+            // Detect Device
+            let deviceInfo = "@ ";
+            if(/Android/i.test(navigator.userAgent)) {
+                deviceInfo += "Android";
+            } else if(/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                deviceInfo += "iOS";
+            } else if(/Windows Phone/i.test(navigator.userAgent)) {
+                deviceInfo += "Windows Phone";
+            } else if(/Linux/i.test(navigator.platform)) {
+                deviceInfo += "Linux";
+            } else if(/Mac/i.test(navigator.platform)) {
+                deviceInfo += "Macintosh";
+            } else if(/Windows/i.test(navigator.platform)) {
+                deviceInfo += "Windows";
+            } else {
+                deviceInfo += "Unknown";
+            }
+            document.getElementById('device').innerText = deviceInfo;
+        
+            
+           function setStatus() {
+      var statusElement = document.getElementById('status');
+      if (navigator.onLine) {
+        statusElement.textContent = 'Online';
+        statusElement.classList.add('online');
+        statusElement.classList.remove('offline');
+      } else {
+        statusElement.textContent = 'Offline';
+        statusElement.classList.remove('online');
+        statusElement.classList.add('offline');
+      }
+    }
+
+    window.addEventListener('online', setStatus);
+    window.addEventListener('offline', setStatus);
+
+    setStatus();
+
+        
+        
+    </script>
+</body>
+</html>

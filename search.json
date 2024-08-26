@@ -1,0 +1,15 @@
+[
+    { "name": "Google", "url": "https://www.google.com/search?q=", "icon": "https://www.google.com/favicon.ico" },
+    { "name": "Bing", "url": "https://www.bing.com/search?q=", "icon": "https://www.bing.com/sa/simg/favicon.ico" },
+    { "name": "Yahoo", "url": "https://search.yahoo.com/search?p=", "icon": "https://s.yimg.com/rz/l/favicon.ico" },
+    { "name": "DuckDuckGo", "url": "https://duckduckgo.com/?q=", "icon": "https://duckduckgo.com/assets/icons/meta/DDG-iOS-icon_60x60.png" },
+    { "name": "Yandex", "url": "https://yandex.com/search/?text=", "icon": "https://yandex.com/images/favicon.ico" },
+    { "name": "Baidu", "url": "https://www.baidu.com/s?wd=", "icon": "https://www.baidu.com/favicon.ico" },
+    { "name": "Ask", "url": "https://www.ask.com/web?q=", "icon": "https://www.ask.com/favicon.ico" },
+    { "name": "AOL", "url": "https://search.aol.com/aol/search?q=", "icon": "https://www.aol.com/favicon.ico" },
+    { "name": "WolframAlpha", "url": "https://www.wolframalpha.com/input/?i=", "icon": "https://www.wolframalpha.com/favicon.ico" },
+    { "name": "Ecosia", "url": "https://www.ecosia.org/search?q=", "icon": "https://www.ecosia.org/favicon.ico" },
+    { "name": "GitHub", "url": "https://github.com/search?q=", "icon": "https://github.githubassets.com/favicon.ico" },
+    { "name": "Stack Overflow", "url": "https://stackoverflow.com/search?q=", "icon": "https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico" }
+    // Add more search engines here as needed
+]
