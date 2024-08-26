@@ -10,6 +10,11 @@ halaman ini untuk menyimpan data-data yang saya suka!.
  - [YTake Trend](https://mansitee.github.io/p/ytake/ytrend.html)
  - [YTake Data](https://mansitee.github.io/p/ytake/Ytdata.html)
  - [YTake Search](https://mansitee.github.io/p/ytsearch)
+##  Movie  
+ - [Movie Search](https://mansitee.github.io/p/movie/movie.html)
+## Password 
+ - [Password 1](https://mansitee.github.io/p/password/password.html)
+ - [Password 2](https://mansitee.github.io/p/passwoed/passwordll.html)
  - Lagi belajar.
  - bisa.
  - semangat
