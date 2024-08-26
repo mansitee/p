@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="description" content="Author: Mansitee. Author,
+    Illustrator: Ytinfo, Category: Books, Price: free,">
+    	
+    	
+    	<link href="favicon.ico" rel="icon" type="image/x-icon">
+  <link rel="manifest" href="./sima.webmanifest">
+    
+  <link href="./icon-152x152.png" rel="apple-touch-icon">
+    <title>YouTube Downloader</title>
+    <style>body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(85deg, #eee1ff 2.5%, #d7e9ff 102.57%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #333;
+}
+header{position:fixed;padding-top:30px;tbackground:linear-gradient(85deg,#eee1ff 2.5%,#d7e9ff 102.57%);background: var(--background1);width:100%;justify-content: center;align-items: center;padding:0px 30px;}  
+ 
+.search {padding:0px 20px;justify-content: center;
+  position: relative;
+  display: flex;
+  height: 2.1rem;
+  width:90%; padding-right: 0.9rem;
+  margin:30px 0px 0px 0;
+  border-radius: 30px;}  
+ 
+          
+.search button{position: absolute;
+  width: 90px;  
+  right:26px; height:35px; 
+  top: 10px;
+  bottom: 10px;
+  z-index: 10;
+  border-radius: 20px;
+  background-color:#9575CD;
+  color: #fff;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.9rem;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  transition: .6s ease;}      
+
+.search #fetchButton {border:none;border-radius:30px;cursor: pointer;}
+         
+.search #searchQuery {height: 100%;
+  width: 100%;
+  border-radius: 30px;
+  border: none;
+  tborder: 1px solid  rgb(176 190 197);
+  background-color: #fff;
+  tbackground-color: transparent;
+  padding: 0.625rem 70px 0.625rem 0.75rem; 
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: rgb(69 90 100);
+  outline: none;
+  transition: all .15s cubic-bezier(0.4, 0, 0.2, 1);box-shadow: 20px 20px 30px rgba(0, 0, 0, .05);}
+
+  
+  
+  
+  
+  
+
+#searchQuery {
+        box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.wrap {
+    margin: 0;
+    padding: 10px;
+    margin: 155px 0;
+    z-index: 9999;
+    background: linear-gradient(85deg, #eee1ff 2.5%, #d7e9ff 102.57%);
+}
+
+#results {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.result-item {
+    background-color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    word-break: break-all;
+}
+
+.result-item:hover {
+    background: #f1f1f1;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 90px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.video-info {
+    flex-grow: 1;
+}
+
+.video-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.video-description {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.video-views {
+    color: #9575cd;
+    font-size: 14px;
+    font-weight: bold;
+}
+.button-container{padding-right: 0.2rem;}
+.copy-button,
+.share-button,
+.watch-button,
+.next-button,
+.back-button{
+    background-color: #9575cd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.copy-button:hover,
+.share-button:hover,
+.watch-button:hover{
+    background-color: #b39ddb;
+}
+
+.tnext-button {
+    tdisplay: flex;
+    position: fixed;
+    bottom:120px;
+    left:0;
+    right:0;
+    float: right;
+    justify-content: center;
+    align-items: center;
+    width:20%;
+    padding-top: 10px;
+    padding:10px 0 20px 0;
+    border-radius:20px 20px 0 0;
+    background: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.footer {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    right:0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    padding:10px 0 20px 0;
+    border-radius:20px 20px 0 0;
+    background: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer .menuu {
+    padding: 11px 20px;
+    font-size:22px;
+    background: #ffffff;
+    color: #9575cd;
+    border: none;
+    border-radius: 20px 0 0 0;
+    cursor: pointer;
+    max-width: 100%;
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.footer button {
+    padding: 11px 20px;
+    font-size: 18px;
+    background: #9575cd;
+    color: #ffffff;
+    border: none;
+    border-radius:20px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    box-shadow:0 2px 5px rgba(0,0,0,0.3);
+}
+
+
+#searchHistory {
+    display: flex;
+    overflow-x: auto; /* Untuk memberikan scrolling horizontal jika terlalu banyak */
+    gap: 10px; /* Jarak antar item histori */ margin:40px 0;
+    padding: 10px; /* Padding untuk memberikan ruang di sekitar konten */
+    background: linear-gradient(85deg, #eee1ff 2.5%, #d7e9ff 102.57%);
+}
+
+.history-item {
+    padding: 8px 12px;
+    background-color:#D1C4E9;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap; /* Agar teks tidak melipat jika terlalu panjang */
+}
+ 
+@media (min-width: 768px) {
+    /* Styles for tablets and larger devices */
+    .search {
+        top: 30px;
+        padding: 15px;
+        margin:10px;
+    }
+
+    .search button {
+        padding: 12px 25px;
+        font-size: 20px;
+    }
+
+    #searchQuery {
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    .result-item {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .thumbnail {
+        width: 120px;
+        height: 100px;
+    }
+
+    .video-title {
+        font-size: 16px;
+    }
+
+    .video-description {
+        font-size: 14px;
+    }
+
+    .video-views {
+        font-size: 16px;
+    }
+
+    .copy-button,
+    .share-button {
+        padding: 8px 15px;
+        font-size: 16px;
+    }
+
+    .footer .menuu {
+        padding: 12px 25px;
+        font-size: 20px;
+    }
+
+    .footer button {
+        padding: 12px 25px;
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Styles for desktops */
+    .search {
+        top: 40px;
+        padding: 20px;
+        margin:10px;
+    }
+
+    .search button {
+        padding: 15px 30px;
+        font-size: 22px;
+    }
+
+    #searchQuery {
+        padding: 15px;
+        font-size: 20px;
+    }
+
+    .result-item {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .thumbnail {
+        width: 140px;
+        height: 120px;
+    }
+
+    .video-title {
+        font-size: 18px;
+    }
+
+    .video-description {
+        font-size: 16px;
+    }
+
+    .video-views {
+        font-size: 18px;
+    }
+
+    .copy-button,
+    .share-button {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    .footer .menuu {
+        padding: 15px 30px;
+        font-size: 22px;
+    }
+
+    .footer button {
+        padding: 15px 30px;
+        font-size: 22px;
+    }
+}
+    </style>
+</head>
+<body>
+	
+  <header>  
+ <div class="search">   <input type="text" id="searchQuery" list="suggestions" placeholder="Search YouTube Or Link Video">
+    <datalist id="suggestions">
+        <!-- List of suggestions -->
+        <option value="Music videos">
+        <option value="Movie">
+        <option value="Sejarah">	
+        <option value="Indonesia">	
+        <option value="Funny cat videos">
+        <option value="How-to tutorials">
+        <option value="Travel vlogs">
+        <option value="Tech reviews">
+    </datalist>
+    <button onclick="searchYouTube()">Search</button>
+    </div>   
+  <div id="searchHistory">
+    <!-- Tempat untuk menampilkan histori pencarian -->
+</div>  	
+  	
+  </header>  
+    
+    <div class="wrap">
+    <div id="results"></div>
+    
+
+
+ <div class="footer">
+    <a class="menuu"href="yttake.html"> YTDown</a> 		
+ 	<button onclick="nextPage()">Next</button>
+ </div>     
+    
+</div>
+    <script>
+        // Simpan kunci API YouTube Anda di sini 
+const YOUTUBE_API_KEY = 'AIzaSyDooaKG0vu4eWexLT-MlUVPpzXP8qqpfp4';
+let nextPageToken = '';
+let lastQuery = ''; // Variabel untuk menyimpan query terakhir
+
+// Inisialisasi histori pencarian
+function initializeHistory() {
+    if (!localStorage.getItem('searchHistory')) {
+        localStorage.setItem('searchHistory', JSON.stringify([]));
+    }
+}
+
+// Tambahkan query pencarian ke histori
+function addToHistory(query) {
+    const searchHistory = getSearchHistory();
+    if (!searchHistory.includes(query)) {
+        searchHistory.push(query);
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    }
+}
+
+// Ambil histori pencarian dari localStorage
+function getSearchHistory() {
+    return JSON.parse(localStorage.getItem('searchHistory')) || [];
+}
+
+// Tampilkan histori pencarian
+function displaySearchHistory() {
+    const historyContainer = document.getElementById('searchHistory');
+    historyContainer.innerHTML = '';
+
+    const searchHistory = getSearchHistory();
+    searchHistory.forEach(query => {
+        const historyItem = document.createElement('div');
+        historyItem.classList.add('history-item');
+        historyItem.textContent = query;
+        historyItem.addEventListener('click', () => {
+            document.getElementById('searchQuery').value = query;
+            searchYouTube();
+        });
+        historyContainer.appendChild(historyItem);
+    });
+}
+
+// Fungsi untuk melakukan pencarian YouTube
+async function searchYouTube() {
+    const query = document.getElementById('searchQuery').value;
+    lastQuery = query; // Simpan query terakhir
+    addToHistory(query); // Tambahkan pencarian ke histori
+
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&part=snippet&type=video&maxResults=20&key=${YOUTUBE_API_KEY}`);
+    const data = await response.json();
+
+    // Proses respons dan tampilkan hasil
+    nextPageToken = data.nextPageToken;
+    const videoIds = data.items.map(item => item.id.videoId).join(',');
+    const detailsResponse = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoIds}&part=statistics&key=${YOUTUBE_API_KEY}`);
+    const detailsData = await detailsResponse.json();
+    displayResults(data.items, detailsData.items);
+}
+
+// Fungsi untuk menampilkan hasil pencarian
+function displayResults(items, details) {
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '';
+
+    items.forEach((item, index) => {
+        const videoElement = createVideoElement(item, details[index]);
+        resultsDiv.appendChild(videoElement);
+    });
+
+    // Tombol lanjut
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.classList.add('next-button');
+    nextButton.onclick = () => {
+        nextPage();
+    };
+    resultsDiv.appendChild(nextButton);
+}
+
+// Fungsi untuk membuat elemen video
+function createVideoElement(item, detail) {
+    const videoElement = document.createElement('div');
+    videoElement.classList.add('result-item');
+
+    const thumbnail = document.createElement('img');
+    thumbnail.src = item.snippet.thumbnails.medium.url;
+    thumbnail.alt = item.snippet.title;
+    thumbnail.classList.add('thumbnail');
+    videoElement.appendChild(thumbnail);
+
+    const videoInfo = document.createElement('div');
+    videoInfo.classList.add('video-info');
+
+    const videoTitle = document.createElement('div');
+    videoTitle.classList.add('video-title');
+    videoTitle.textContent = item.snippet.title;
+    videoInfo.appendChild(videoTitle);
+
+    const videoDescription = document.createElement('div');
+    videoDescription.classList.add('video-description');
+    videoDescription.textContent = item.snippet.description;
+    videoInfo.appendChild(videoDescription);
+
+    const videoViews = document.createElement('div');
+    videoViews.classList.add('video-views');
+    videoViews.textContent = `Views: ${formatViewCount(detail.statistics.viewCount)}`;
+    videoInfo.appendChild(videoViews);
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('button-container');
+
+    const watchButton = document.createElement('button');
+    watchButton.textContent = 'Watch';
+    watchButton.classList.add('watch-button');
+    watchButton.onclick = () => openVideoInLightbox(item.id.videoId);
+    buttonContainer.appendChild(watchButton);
+
+    const copyButton = document.createElement('button');
+    copyButton.textContent = 'Copy Link';
+    copyButton.classList.add('copy-button');
+    copyButton.onclick = () => copyVideoLink(item.id.videoId);
+    buttonContainer.appendChild(copyButton);
+
+    const shareButton = document.createElement('button');
+    shareButton.textContent = 'Share';
+    shareButton.classList.add('share-button');
+    shareButton.onclick = () => shareVideoLink(item.id.videoId);
+    buttonContainer.appendChild(shareButton);
+
+    videoInfo.appendChild(buttonContainer);
+    videoElement.appendChild(videoInfo);
+
+    return videoElement;
+}
+
+// Fungsi untuk membuka video dalam lightbox atau jendela melayang
+function openVideoInLightbox(videoId) {
+    const confirmation = confirm('Anda akan dialihkan ke YouTube untuk menonton video. Lanjutkan?');
+    if (confirmation) {
+        const youtubeLink = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        window.open(youtubeLink, '_blank');
+    }
+}
+
+// Fungsi untuk menyalin link video ke clipboard
+function copyVideoLink(videoId) {
+    const youtubeLink = `https://www.youtube.com/watch?v=${videoId}`;
+    navigator.clipboard.writeText(youtubeLink).then(() => {
+        alert('Link copied successfully!');
+    }).catch(err => {
+        console.error('Failed to copy link: ', err);
+    });
+}
+
+// Fungsi untuk berbagi link video
+function shareVideoLink(videoId) {
+    const youtubeLink = `https://savefrom.net/?url=${videoId}`;
+    window.open(youtubeLink, '_blank');
+}
+
+// Fungsi untuk memformat jumlah view
+function formatViewCount(viewCount) {
+    if (viewCount >= 1000000) {
+        return (viewCount / 1000000).toFixed(1) + 'M';
+    } else if (viewCount >= 1000) {
+        return (viewCount / 1000).toFixed(1) + 'K';
+    } else {
+        return viewCount;
+    }
+}
+
+// Fungsi untuk halaman berikutnya
+async function nextPage() {
+    if (!lastQuery || !nextPageToken) return; // Jika tidak ada query terakhir atau nextPageToken, keluar
+
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?q=${lastQuery}&part=snippet&type=video&maxResults=20&pageToken=${nextPageToken}&key=${YOUTUBE_API_KEY}`);
+    const data = await response.json();
+
+    // Proses respons dan tampilkan hasil
+    nextPageToken = data.nextPageToken;
+    const videoIds = data.items.map(item => item.id.videoId).join(',');
+    const detailsResponse = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoIds}&part=statistics&key=${YOUTUBE_API_KEY}`);
+    const detailsData = await detailsResponse.json();
+    displayResults(data.items, detailsData.items);
+}
+
+// Panggil fungsi inisialisasi saat halaman dimuat
+document.addEventListener('DOMContentLoaded', () => {
+    initializeHistory();
+    displaySearchHistory();
+});
+</script>
+
+
+<script>
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+      
+  </script>
+</body>
+</html>
