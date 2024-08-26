@@ -1,0 +1,139 @@
+/* CSS Styles */
+        body, h1, h2, h3, p, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-image:linear-gradient(to bottom, #d7e9ff, #eee1ff, #D1C4E9);  
+            padding: 20px;
+            center;height:auto;min-height: 100vh; -webkit-overflow-scrolling:touch;overflow-x:hidden;
+        }
+
+        header {
+        
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        h1 {
+            font-size: 1.8em;
+        }
+
+        main {
+            margin-top: 20px;
+        }
+
+        #videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-item {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .video-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .copy-link-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .copy-link-btn:hover {
+            background-color: #45a049;
+        }
+
+        .channel-info {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .channel-info img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .viewer-count {
+            margin-top: 8px;
+            color: #777;
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            #videos {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+    
+        
+        
+        
+        
+
+.footer {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    right:0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    padding:10px 0 20px 0;
+    border-radius:20px 20px 0 0;
+    background: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer .menuu {
+    padding: 11px 20px;
+    font-size:22px;
+    background: #ffffff;
+    color: #9575cd;
+    border: none;
+    border-radius: 20px 0 0 0;
+    cursor: pointer;
+    max-width: 100%;
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.footer button {
+    padding: 11px 20px;
+    font-size: 18px;
+    background: #9575cd;
+    color: #ffffff;
+    border: none;
+    border-radius:20px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    box-shadow:0 2px 5px rgba(0,0,0,0.3);
+}

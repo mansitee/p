@@ -1,0 +1,70 @@
+{
+  "name": "YTinfo Downloader PWA ",
+  "short_name": "YTinfo PWA",
+  "description": "Simple pwa sedang dalam perjalanan menuju kesuksesan",
+  "icons": [{
+    "src": "aset/60.png",
+      "sizes": "60x60",
+      "type": "image/png",
+      "purpose": "any maskable"
+      
+    }, {
+      "src": "aset/90.png",
+      "sizes": "90x90",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }, {
+      "src": "aset/100.png",
+      "sizes": "100x100",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+    , {
+      "src": "aset/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }],
+  "lang": "en-US",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "white",
+  "theme_color": "white"
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "orientation": "portrait",
+  "display_override": [
+    "standalone",
+    "window-controls-overlay",
+    "browser"
+  ],
+  "edge_side_panel": {
+    "preferred_width": 600
+  },
+  "categories": [
+    "books",
+    "entertainment",
+    "food",
+    "lifestyle",
+    "music",
+    "news",
+    "personalization",
+    "utilities"
+  ],
+  "permissions": [
+    "notifications",
+    "storage",
+    "unlimitedStorage",
+    "fullscreen"
+  ],
+},
+"share_target": {
+    "method": "GET",
+    "action": "/p/",
+    "params": {
+      "title": "App",
+      "text": "Pintasan Ke Halaman App Dokumen",
+      "url": "https://mansitee.github.io/ytsd/"
+    }
+  },
