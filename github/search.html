@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Repositories Search</title>
+  <style> body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feeds {
+            margin-top: 20px;
+            width: 80%;
+        }
+
+        .feeds .feed-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            cursor: move;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .feeds .feed-item .repo-info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;-webkit-tap-highlight-color: transparent;
+        }
+
+        .feeds .feed-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 20px;-webkit-tap-highlight-color: transparent;
+        }
+
+        .feed-info {
+            font-size: 14px;
+        }
+
+        .feed-info p {
+            margin: 5px 0;
+        }
+
+        .feed-info p:first-child {
+            font-weight: bold;
+        }
+
+        .folder-contents {
+            padding-left: 20px;
+            display: none;
+            flex-direction: column;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;-webkit-tap-highlight-color: transparent;
+        }
+
+        .folder-contents .content-item,
+        .sub-folder-contents .sub-folder-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin: 5px 0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .folder-contents .content-item:hover,
+        .sub-folder-contents .sub-folder-item:hover {
+            background: #e2e6ea;
+        }
+
+        .sub-folder-contents {
+            padding-left: 20px;
+            display: none;
+            flex-direction: column;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;-webkit-tap-highlight-color: transparent;
+        }
+
+        .sub-folder-contents .sub-folder-item {
+            background: #e8f0fe;
+        }
+
+        .sub-folder-contents .sub-folder-item:hover {
+            background: #d0e0fe;
+        }
+
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .stories {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        .story {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .story img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .feeds {
+                width: 90%;
+            }
+
+            .stories {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .story {
+                margin-bottom: 20px;
+            }
+
+            .feeds .feed-item {
+                width: 100%;
+            }
+
+            .stories {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feeds {
+                width: 95%;
+            }
+
+            .feeds .feed-item {
+                width: 100%;
+            }
+
+            .stories {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .story {
+                margin-bottom: 10px;
+            }
+        }</style> 
+</head>
+<body>
+  <input type="text" id="usernameInput" placeholder="Enter GitHub username">
+  <button onclick="searchRepositories()">Search</button>
+  <div class="feeds"></div>
+  <div class="stories"></div>
+ 
+  <script>
+    function searchRepositories() {
+      const username = document.getElementById('usernameInput').value;
+      const apiUrl = `https://api.github.com/users/${username}/repos`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          displayRepositories(data);
+        })
+        .catch(error => {
+          console.error('Error fetching repositories:', error);
+        });
+    }
+
+    function displayRepositories(repositories) {
+      const feedsElement = document.querySelector('.feeds');
+      feedsElement.innerHTML = '';
+
+      repositories.forEach(repo => {
+        const feedItem = document.createElement('div');
+        feedItem.classList.add('feed-item');
+
+        const repoInfo = document.createElement('div');
+        repoInfo.classList.add('repo-info');
+
+        const repoImage = document.createElement('img');
+        repoImage.src = 'https://via.placeholder.com/50'; // Placeholder image
+        repoImage.alt = 'Repository Image';
+
+        const feedInfo = document.createElement('div');
+        feedInfo.classList.add('feed-info');
+
+        const repoName = document.createElement('p');
+        repoName.textContent = repo.name;
+
+        const repoDescription = document.createElement('p');
+        repoDescription.textContent = repo.description || 'No description provided';
+
+        const repoStars = document.createElement('p');
+        repoStars.textContent = `Stars: ${repo.stargazers_count}`;
+
+        feedInfo.appendChild(repoName);
+        feedInfo.appendChild(repoDescription);
+        feedInfo.appendChild(repoStars);
+
+        repoInfo.appendChild(repoImage);
+        repoInfo.appendChild(feedInfo);
+
+        feedItem.appendChild(repoInfo);
+
+        const folderContents = document.createElement('div');
+        folderContents.classList.add('folder-contents');
+
+        feedItem.appendChild(folderContents);
+
+        feedItem.addEventListener('click', () => {
+          if (folderContents.style.display === 'none' || folderContents.style.display === '') {
+            folderContents.style.display = 'flex';
+            fetchContents(repo.full_name, folderContents);
+          } else {
+            folderContents.style.display = 'none';
+          }
+        });
+
+        feedsElement.appendChild(feedItem);
+      });
+    }
+
+    function fetchContents(repoFullName, container) {
+      const apiUrl = `https://api.github.com/repos/${repoFullName}/contents`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          displayContents(data, container);
+        })
+        .catch(error => {
+          console.error('Error fetching contents:', error);
+        });
+    }
+
+    function displayContents(contents, container) {
+      container.innerHTML = '';
+
+      contents.forEach(item => {
+        const contentItem = document.createElement('div');
+        contentItem.classList.add('content-item');
+        contentItem.textContent = item.name;
+        container.appendChild(contentItem);
+
+        if (item.type === 'dir') {
+          contentItem.style.fontWeight = 'bold';
+          contentItem.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleSubContents(item.url, contentItem);
+          });
+        } else {
+          contentItem.addEventListener('click', () => {
+            viewFile(item.download_url);
+          });
+        }
+      });
+    }
+
+    function toggleSubContents(url, container) {
+      let subContainer = container.querySelector('.sub-folder-contents');
+
+      if (subContainer) {
+        if (subContainer.style.display === 'none' || subContainer.style.display === '') {
+          subContainer.style.display = 'flex';
+        } else {
+          subContainer.style.display = 'none';
+        }
+      } else {
+        fetchSubContents(url, container);
+      }
+    }
+
+    function fetchSubContents(url, container) {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const subContainer = document.createElement('div');
+          subContainer.classList.add('sub-folder-contents');
+          displaySubContents(data, subContainer);
+          container.appendChild(subContainer);
+        })
+        .catch(error => {
+          console.error('Error fetching sub contents:', error);
+        });
+    }
+
+    function displaySubContents(contents, container) {
+      container.innerHTML = '';
+
+      contents.forEach(item => {
+        const subFolderItem = document.createElement('div');
+        subFolderItem.classList.add('sub-folder-item');
+        subFolderItem.textContent = item.name;
+        container.appendChild(subFolderItem);
+
+        if (item.type === 'dir') {
+          subFolderItem.style.fontWeight = 'bold';
+          subFolderItem.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleSubContents(item.url, subFolderItem);
+          });
+        } else {
+          subFolderItem.addEventListener('click', () => {
+            viewFile(item.download_url);
+          });
+        }
+      });
+    }
+
+    function viewFile(url) {
+      window.open(url, '_blank');
+    }
+
+    function fetchTrendingRepositories() {
+      const apiUrl = 'https://ghapi.huchen.dev/repositories?since=daily';
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          displayTrendingRepositories(data);
+        })
+        .catch(error => {
+          console.error('Error fetching trending repositories:', error);
+        });
+    }
+
+    function displayTrendingRepositories(repositories) {
+      const storiesElement = document.querySelector('.stories');
+      storiesElement.innerHTML = '';
+
+      repositories.forEach(repo => {
+        const story = document.createElement('div');
+        story.classList.add('story');
+
+        const repoImage = document.createElement('img');
+        repoImage.src = 'https://via.placeholder.com/60'; // Placeholder image
+        repoImage.alt = 'Repository Image';
+
+        const repoName = document.createElement('p');
+        repoName.textContent = repo.name;
+
+        story.appendChild(repoImage);
+        story.appendChild(repoName);
+
+        storiesElement.appendChild(story);
+      });
+    }
+
+    // Fetch trending repositories on page load
+    fetchTrendingRepositories();
+  </script>
+</html>
