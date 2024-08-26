@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub File Manager</title>
+  <style>
+    /* Your CSS styles here */
+div {margin:0;padding:0;box-sizing: border-box;}
+ 
+.header{align-items: center;
+text-align:center;padding:10px;tborder:1px solid rgba(168,166,166,0.72);box-shadow:0 0 10px rgba(0, 0, 0, 0.1);border-radius:10px;}  
+
+.header h1{top:2px; left:0;width:100%;
+tbackground-color: #f9f9f9;font-weight: bold;font-size:24px;ttext-decoration: underline;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+           
+.header h1 h1bg{color:#FFF;padding:5px;border-radius:10px;background:rgba(0,0, 0,2);box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);}
+
+#app{margin-top:40px;padding:2px;
+tborder:1px solid rgba(168,166,166,0.72);
+border-radius:5px;}      
+     
+
+#repoList {display:flex; overflow-x:auto;
+tposition:fixed;ttop:2px;twidth: 100%; padding:2px;}
+
+#repoList div{white-space:nowrap;padding-left:20px;width:100%;font-size:20px;background-color: #f9f9f9;padding:5px;}    
+ 
+#fileList {box-shadow:0 0 10px rgba(0,0, 0,0.1);padding:5px;tborder:1px solid #ccc;border-radius:10px;}
+ 
+#fileList ul{box-shadow:0 0 10px rgba(0,0, 0,0.1);margin-left:20px;border:1px solid #ccc;}
+ 
+#fileList li{background:#f2f2f2; tbox-shadow:0 0 10px rgba(0,0, 0,0.1);border-left-color: coral;border-left:2px solid #000;margin:5px;padding:2px;margin-left:20px;}
+    
+input[type="text"] {width:50%;padding: 8px 16px;border-radius:5px;border:1px solid #ccc;box-sizing:border-box;background:#fff; }    
+
+button{padding: 8px 16px;border:none;border-radius:5px;background-color:#007bff;color:#fff;cursor:pointer;transition:background-color 0.3s;}
+ 
+button:hover{background-color:#0056b3;}
+   
+.github-logo {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+
+.github-logo svg {
+  width: 100%;
+  height: 100%;
+}
+  </style> </head>
+ 
+<body> <div id="app">
+<div class="header">  <h1> GitHub <h1bg>.Repositories</h1bg> </h1> 
+
+ 
+<label for="username">Username:</label>
+<input type="text" id="username" placeholder="Enter your GitHub username"> <button onclick="fetchRepos()">Go</button> 
+    <ul id="repoList">
+      <!-- Repo list will be populated here -->
+    </ul> </div> </div>
+
+    <ul id="fileList">
+      <!-- File list will be populated here -->
+    </ul>
+  </div>
+  
+  <script>
+  function fetchRepos() {
+    const username = document.getElementById('username').value.trim();
+    if (username === '') {
+      alert('Please enter a GitHub username.');
+      return;
+    } 
+    
+    const repoList = document.getElementById('repoList');
+    const fileList = document.getElementById('fileList');
+
+    fetch(`https://api.github.com/users/${username}/repos`)
+      .then(response => response.json())
+      .then(data => {
+        repoList.innerHTML = ''; // Clear previous repo list
+        fileList.innerHTML = ''; // Clear previous file list
+        data.forEach(repo => {
+          const listItem = document.createElement('div');
+          listItem.textContent = repo.name;
+          listItem.addEventListener('click', () => fetchFiles(username, repo.name));
+          repoList.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching repos:', error);
+      });
+  }
+
+  // Function to fetch files from a repository
+  function fetchFiles(username, repoName) {
+    const fileList = document.getElementById('fileList');
+
+    fetch(`https://api.github.com/repos/${username}/${repoName}/contents`)
+      .then(response => response.json())
+      .then(data => {
+        fileList.innerHTML = ''; // Clear previous file list
+        data.forEach(item => {
+          const itemElement = document.createElement('li');
+          if (item.type === 'file') {
+            itemElement.textContent = `${item.name} (${formatBytes(item.size)}) - ${getFileExtension(item.name)}`;
+            itemElement.addEventListener('click', () => fetchFileContent(username, repoName, item.path));
+          } else if (item.type === 'dir') {
+            itemElement.textContent = item.name + '/';
+            itemElement.classList.add('folder');
+            itemElement.addEventListener('click', () => fetchFilesInFolder(username, repoName, item.path));
+          }
+          fileList.appendChild(itemElement);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching files:', error);
+      });
+  }
+
+  // Function to fetch files in a folder
+  function fetchFilesInFolder(username, repoName, folderPath) {
+    const fileList = document.getElementById('fileList');
+
+    fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${folderPath}`)
+      .then(response => response.json())
+      .then(data => {
+        fileList.innerHTML = ''; // Clear previous file list
+        data.forEach(item => {
+          const itemElement = document.createElement('li');
+          if (item.type === 'file') {
+            itemElement.textContent = `${item.name} (${formatBytes(item.size)}) - ${getFileExtension(item.name)}`;
+            itemElement.addEventListener('click', () => fetchFileContent(username, repoName, item.path));
+          } else if (item.type === 'dir') {
+            itemElement.textContent = item.name + '/';
+            itemElement.classList.add('folder');
+            itemElement.addEventListener('click', () => fetchFilesInFolder(username, repoName, `${folderPath}/${item.name}`));
+          }
+          fileList.appendChild(itemElement);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching files in folder:', error);
+      });
+  }
+
+  // Function to fetch file content
+  function fetchFileContent(username, repoName, filePath) {
+    fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${filePath}`)
+      .then(response => response.json())
+      .then(data => {
+        // Assuming the file content is encoded in base64
+        const decodedContent = atob(data.content);
+        alert(decodedContent); // Display file content, you can customize this part
+      })
+      .catch(error => {
+        console.error('Error fetching file content:', error);
+      });
+  }
+
+  // Function to format file size (convert bytes to KB, MB, etc.)
+  function formatBytes(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
+  // Function to get file extension from filename
+  function getFileExtension(filename) {
+    return filename.split('.').pop();
+  }
+  
+  
+  
+  
+  
+  
+</script>
+</body>
+</html>
