@@ -1,0 +1,130 @@
+{
+  "title": "MiXplorer",
+  "package": "com.mixplorer",
+  "date": "14\/12\/2020 10:57:44",
+  "type": 1,
+  "db": {
+    "uris": [
+      {
+        "pid": 14,
+        "uri": "ftp:\/\/192.168.43.1:2121",
+        "title": "",
+        "user": "",
+        "secret": "-4b5UqesaK1sTF2GBWcAvg",
+        "properties": "passive=\nactive=\nport=\nforce_show_hidden=\nconnect_timeout=\nencoding="
+      },
+      {
+        "pid": 14,
+        "uri": "http:\/\/192.168.43.1:8080",
+        "title": "",
+        "user": "",
+        "secret": "",
+        "properties": "trust=\nencoding=\nkeep_alive="
+      },
+      {
+        "pid": 14,
+        "uri": "http:\/\/portal.ncnd.indosatooredoo.com",
+        "title": "",
+        "user": "",
+        "secret": "",
+        "properties": "remote=\/nc\/\ntrust=\nencoding=\nkeep_alive="
+      },
+      {
+        "pid": 14,
+        "uri": "\/",
+        "title": "Root",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "\/storage\/emulated\/0",
+        "title": "SD card",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/external\/audio",
+        "title": "Audio",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/external\/video",
+        "title": "Video",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/external\/image",
+        "title": "Image",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/external\/document",
+        "title": "Document",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/external\/archive",
+        "title": "Archive",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/external\/apk",
+        "title": "APK",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/external\/all",
+        "title": "All Files",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/external\/all\/folders",
+        "title": "All Folders",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/user\/package",
+        "title": "User App",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      },
+      {
+        "pid": 14,
+        "uri": "content:\/\/system\/package",
+        "title": "System App",
+        "user": "",
+        "secret": "",
+        "properties": ""
+      }
+    ]
+  }
+}
