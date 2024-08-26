@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>快点网速测试</title>
+	<meta charset="UTF-8">
+    <meta name="Description" content="快点网速测试提供网速测试，网络质量测试，宽带测速，Wi-Fi测速，5G测速，IPv6测速，带宽检测，路由器测速，网关测速，宽带提速，宽带升级，网络加速，内网测速，专网测速，视频测试，游戏测速，直播测速，网络诊断，蹭网检测，物联网监测，网站监测，API监测，Ping测试，路由测试等专业服务，拥有国内外大量高性能测试点，覆盖电信，移动，联通，网通，广电，长城宽带，鹏博士等运营商。">
+    <meta name="Keywords" content="测速,测网速,网速,网络质量,5G网速,5G测速,5G网络,在线测速,网速测试,宽带测速,视频测试,Wi-Fi测速,联通,电信,移动,长城宽带,广电,鹏博士,网速诊断,网络诊断,蹭网检测,路由测试,上网速度,网页打开速度,游戏测速,直播测速,提高网速,宽带提速,网络加速,速度测试,带宽检测,宽带测试,千兆宽带,全屋Wi-Fi,双千兆,三千兆,光纤,ping,speedtest,speed,test,adsl,ftth,iot,internet,tracert,traceroute,IPv6,Wi-Fi 6,6G,网维助手">
+   
+	<!-- 设置视口 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 引入Bootstrap 5 CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-..." crossorigin="anonymous">
+	<style>
+		/* 自定义样式 */
+		#test-container iframe {
+			position: fixed;
+			top: 60px;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+		}
+	</style>
+	<!-- Favicon  -->
+	<link rel="shortcut icon" type="image/x-icon"
+		href="/">
+</head>
+<body class="bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">快点网速测试</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="speedtestDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							测速网站
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="speedtestDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="loadTest('https://test.nju.edu.cn/');">南京大学测速</a></li>
+							<li><a class="dropdown-item" href="https://www.speedtest.net/zh-Hans" >Speedtest.net</a></li>
+							<li><a class="dropdown-item" href="#" onclick="loadTest('https://fast.com');">Fast.com</a></li>
+                            <li><a class="dropdown-item" href="https://speed.cloudflare.com/">CloudflareSpeed</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="loadTest('https://www.speedtest.cn/');">测速网</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="loadTest('https://test.ustc.edu.cn/');">中科大测速</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="loadTest('https://iptv.tsinghua.edu.cn/st/');">清华测速</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="loadTest('https://librespeed.org/');">LibreSpeed</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="loadTest('http://speed.neu.edu.cn/');">东北大学测速</a></li>
+                        </ul>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container mt-5">
+		
+			<div class="col">
+				<div id="test-container"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 引入Bootstrap 5 JS -->
+	<script src="https://cdn.jsdmirror.com/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
+	<script>
+		// 自适应屏幕宽度
+		function setViewport() {
+			var vw = window.innerWidth * 0.01;
+			document.documentElement.style.setProperty('--vw', `${vw}px`);
+		}
+		setViewport();
+		window.addEventListener('resize', setViewport);
+
+		// 加载测速网站
+		function loadTest(url) {
+			document.getElementById('test-container').innerHTML = '<iframe src="' + url + '"></iframe>';
+		}
+
+		
+		loadTest('https://test.nju.edu.cn/');
+	</script>
+</body>
+</html>
