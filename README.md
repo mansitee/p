@@ -14,7 +14,7 @@ halaman ini untuk menyimpan data-data yang saya suka!.
  - [Movie Search](https://mansitee.github.io/p/movie/movie.html)
 ## Password 
  - [Password 1](https://mansitee.github.io/p/password/password.html)
- - [Password 2](https://mansitee.github.io/p/passwoed/passwordll.html)
+ - [Password 2](https://mansitee.github.io/p/password/passwordll.html)
  - Lagi belajar.
  - bisa.
  - semangat
