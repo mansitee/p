@@ -6,6 +6,6 @@ halaman ini untuk menyimpan data-data yang saya suka!.
  - bisa.
  - semangat
    
-## ===========Warning!.============ 
+## Warning!.
 
 this page to save the data that I like!. 
