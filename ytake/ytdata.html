@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+    <style>
+body{font-family:Arial, sans-serif;margin: 20px;}
+#data {margin-top:20px;}                       
+a{font-family: Arial, sans-serif;color:red;font-size:16px;text-decoration: none;}
+ 
+h1 {color: #000;margin-left: 20px;}
+  h1 b{color:red;}
+  
+table{width:100%;border-collapse:collapse;
+margin-top: 20px;}
+table, th, td {border:1px solid #ddd;}
+th, td {padding:8px;text-align:left;}
+
+tr:nth-child(1) {background-color:#fff;}
+tr:nth-child(2) {background-color:red;}
+td:nth-child(1) {background-color:#fff;}
+td:nth-child(2) {background-color:#e9e9e9;}
+
+tr:hover {background-color:#f1f1f1;}
+tr:active {background-color:#ddd;}
+
+        
+.input {display:flex;}
+input[type="text"] {width:225px;
+padding:10px;border:1px solid #ccc;border-radius:4px;font-size:16px;box-shadow:inset 0 1px 2px rgba(0,0,0,0.1);margin-right: 10px;transition:border-color 0.3s ease;}
+input[type="text"]:focus {border-color:red;outline:none;box-shadow:0 0 0 2px rgba(38,143,255,0.2);}
+ 
+button {padding:10px 20px;border:none;border-radius:10px;background-color:red;color:white;font-size:16px;cursor: pointer;transition:background-color 0.3s ease, box-shadow 0.3s ease;}
+button:hover{background-color:red;}
+button:focus{outline:none;box-shadow:0 0 0 2px red;}
+        
+label {padding:10px 5px;border:none;color: #333; font-size:14px;cursor:pointer;transition:background-color 0.3s ease, box-shadow 0.3s ease;text-decoration: none;}
+                
+.tdb{padding: 10px 20px;
+            border: none;
+            border-radius:30px;
+            background:#ccc;
+            color:#000;
+            font-size: 16px;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1><b>Display</b> Data Info</h1>
+    <label for="vkrInput">YouTube, tiktok, Facebook, Dll*</label> <div class="input">
+    <input type="text" id="vkrInput" placeholder="Enter URL ID">
+    <button id="fetchButton">GO</button> </div>
+    <div id="data"></div>
+
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', function() {
+            const vkr = document.getElementById('vkrInput').value;
+            const url = `https://vkrdownloader.vercel.app/server?vkr=${vkr}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const dataDiv = document.getElementById('data');
+                    const table = document.createElement('table');
+                    const headerRow = document.createElement('tr');
+                    headerRow.innerHTML = '<th>Notif</th> <th>Informasi Yang Di Temukan </th>';
+                    table.appendChild(headerRow);
+
+                    function addRows(obj) {
+                        for (const key in obj) {
+                            if (obj.hasOwnProperty(key)) {
+                                let value = obj[key];
+                                if (typeof value === 'string' && value.startsWith('http')) {
+                                    // Assume it's a URL, create a link
+                                    value = `<a href="${value}" target="_blank">Download</a>`;
+                                } else if (typeof value === 'object' && value !== null) {
+                                    // Handle nested objects
+                                    const row = document.createElement('tr');                               row.innerHTML = `<td style="background:red;color:#fff;font-size: 26px; writing-mode:vertical-lr; font-weight: bold;text-align: center;">${key} Sekarang Berasal Dari Sumber Video Di Internet!.</td><td><table border:"1">${addNestedRows(value)}</table></td>`;
+                                    table.appendChild(row);
+                                    continue; // Skip adding a row for nested objects
+                                }
+
+                                // Add row for key-value pairs
+                                const row = document.createElement('tr');
+                                row.innerHTML = `<td>${key}</td><td>${value}</td>`;
+                                table.appendChild(row);
+                            }
+                        }
+                    }
+
+                    function addNestedRows(obj) {
+                        let rows = '';
+                        for (const key in obj) {
+                            if (obj.hasOwnProperty(key)) {
+                                let value = obj[key];
+                                if (typeof value === 'string' && value.startsWith('http')) {
+                                    value = `<a href="${value}" target="_blank">Download</a>`;
+                                } else if (typeof value === 'object' && value !== null) {
+                                    rows += `<tr><td>${key}</td><td><table border="1">${addNestedRows(value)}</table></td></tr>`;
+                                    continue; // Skip adding a row for nested objects
+                                }
+                                rows += `<tr><td>${key}</td><td>${value}</td></tr>`;
+                            }
+                        }
+                        return rows;
+                    }
+
+                    dataDiv.innerHTML = '';
+                    addRows(data);
+                    dataDiv.appendChild(table);
+                })
+                .catch(error => {
+                    const dataDiv = document.getElementById('data');
+                    dataDiv.innerHTML = `<p style="color: red;">Error fetching data: ${error.message}</p>`;
+                });
+        });
+    </script>
+</body>
+</html>
