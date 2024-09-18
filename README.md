@@ -1,5 +1,7 @@
 # Untuk Pribadi
 halaman ini untuk menyimpan data-data yang saya suka!. 
+
+This page is for storing data that I like!. 
 ## Github 
  - [Github Repositori](https://mansitee.github.io/p/github/gitrepo)
  - [Github Search](https://mansitee.github.io/p/github/search)
