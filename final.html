@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Display JSON Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px 0 60px;
+            margin-bottom: 50px;
+            -webkit-tap-highlight-color:transparent;
+            /* Added bottom padding for tab bar */
+        }
+        .horizontal-scroll {
+        position: fixed;
+            bottom:33px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            overflow-x:auto;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+        }
+        .horizontal-scroll a {
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 10px;
+            margin-right: 10px;
+            background:#28a745;
+            border-radius: 5px;
+            flex-shrink: 0;
+            text-transform: uppercase;
+            
+        }
+        .horizontal-scroll a:hover {
+            background: #66BB6A;
+        }
+        .category-card {
+            max-width: 600px;
+            margin:3px auto;
+            background: #fff;
+            color: #66BB6A;
+            padding:10px;
+            tbox-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            border-radius:10px;
+            tdisplay: grid;
+  tgrid-template-columns: repeat(4, 1fr);
+  tgap:2px;
+      column-gap: 4px;
+     column-count:4; 
+     column-fill: balance;}
+     
+     
+        .category-card h2 {
+            margin-top:0;font-size:1.0em;
+            text-transform: uppercase;
+   } 
+        .card {
+        border: 1px solid #ddd;
+            margin-bottom:5px;
+            padding:10px 0 10px 0;
+            tborder-radius:15px;   
+            text-align: center;
+            white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: #fff;border-radius:15px 15px 10px 10px;tbox-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);}
+  
+        .card h3 {font-size:0.9em;
+            margin-top: 0;white-space:wrap;
+       color: #000; }
+        .card p {
+            tmargin: 5px 0;margin-bottom:3px;color:#fff;
+            font-size: 0.8em;background: #81C784; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }  
+        .card a {
+            color: #000; width:100%;
+            text-decoration: none;
+            font-size: 0.8em;
+            background: #E8F5E9;
+            padding:5px 20px; 
+            border-radius:0 0 10px 10px;
+            tborder-radius:15px 15px 10px 10px;
+            tborder: 1px solid #ddd;
+            tbox-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card a:hover {
+            text-decoration: underline;
+        }
+        .card .tags {
+            margin-top: 10px;
+        }
+        .card .tags span {
+            background: #4CAF50;
+            color: #fff;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 0.6em;
+        }
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+         align-items:center;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            tbox-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .tab-bar a {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .ad-card {
+            border: 1px dashed #f39c12;
+            padding: 15px;
+            background: #fcf8e3;
+            tmargin-bottom: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.9em; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        ::-webkit-scrollbar {
+  display: none;
+}
+
+ 
+    </style>
+</head>
+<body>
+    <div class="horizontal-scroll" id="menu">
+        <!-- Menu items will be dynamically added here -->
+    </div>
+
+    <div id="container"></div>
+
+    <div class="tab-bar">
+        <a href="#home">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#about">About</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const data = [
+  {
+    "id": "",
+    "name": "Assistant",
+    "category": "google",
+    "url": "https://assistant.google.com/",
+    "description": "",
+    "icon": "i.png",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "News",
+    "category": "google",
+    "url": "https://news.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "2",
+    "name": "Gemini",
+    "category": "google",
+    "url": "https://gemini.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": [],
+  },
+  {
+    "id": "",
+    "name": "Pay",
+    "category": "google",
+    "url": "https://pay.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Play",
+    "category": "google",
+    "url": "https://play.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Shopping",
+    "category": "google",
+    "url": "https://shopping.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Lens",
+    "category": "google",
+    "url": "https://lens.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Message ",
+    "category": "google",
+    "url": "https://message.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Translate",
+    "category": "google",
+    "url": "https://translate.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Site",
+    "category": "google",
+    "url": "https://site.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Voice",
+    "category": "google",
+    "url": "https://voice.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Tv",
+    "category": "google",
+    "url": "https://tv.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Admob",
+    "category": "google",
+    "url": "https://admob.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Cloud",
+    "category": "google",
+    "url": "https://cloud.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "YouTube",
+    "category": "google",
+    "url": "https://youtube.com/",
+    "description": "*World",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "YouTube music",
+    "category": "google",
+    "url": "https://music.youtube.com/",
+    "description": "*World",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Trends",
+    "category": "google",
+    "url": "https://trends.youtube.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Sky",
+    "category": "google",
+    "url": "https://google.com/sky",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Earth",
+    "category": "google",
+    "url": "https://earth.google.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "google",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Facebook ",
+    "category": "Sosmed",
+    "url": "https://www.facebook.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Tiktok",
+    "category": "Sosmed",
+    "url": "https://www.tiktok.com",
+    "description": "*World",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Instagram",
+    "category": "Sosmed",
+    "url": "https://www.instagram.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Twitter",
+    "category": "Sosmed",
+    "url": "https://www.twitter.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Wechat",
+    "category": "Sosmed",
+    "url": "https://www.wechat.com",
+    "description": "*World",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "QQ",
+    "category": "Sosmed",
+    "url": "https://www.imqq.com",
+    "description": "China",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  
+  {
+    "id": "",
+    "name": "Blibli",
+    "category": "Shopping",
+    "url": "https://www.blibli.com/",
+    "description": "Indonesia",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Mister Aladin",
+    "category": "Shopping",
+    "url": "https://www.misteraladin.com/",
+    "description": "Indonesia",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Tokopedia",
+    "category": "Shopping",
+    "url": "https://www.tokopedia.com/",
+    "description": "Indonesia",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Lazada",
+    "category": "Shopping",
+    "url": "https://www.lazada.co.id",
+    "description": "*World",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Shopee",
+    "category": "Shopping",
+    "url": "https://www.shopee.co.id",
+    "description": "*World",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Bukalapak",
+    "category": "Shopping",
+    "url": "https://www.bukalapak.co.",
+    "description": "Indonesia",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  }, 
+  {
+    "id": "",
+    "name": "Detikcom",
+    "category": "news",
+    "url": "https://www.detik.com/",
+    "description": "Indonesia",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Liputan6",
+    "category": "news",
+    "url": "https://www.liputan6.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Okezone",
+    "category": "news",
+    "url": "https://www.okezone.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Kompas",
+    "category": "news",
+    "url": "https://www.kompas.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Tempo",
+    "category": "news",
+    "url": "https://www.tempo.co",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "bharian",
+    "category": "news",
+    "url": "https://www.bharian.com.my",
+    "description": "Malaysia",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Merdeka",
+    "category": "news",
+    "url": "https://www.merdeka.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },{
+    "id": "",
+    "name": "malaysia kini",
+    "category": "news",
+    "url": "https://www.malaysiakini.com",
+    "description": "Malaysia",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },{
+    "id": "",
+    "name": "Thestar",
+    "category": "news",
+    "url": "https://www.thestar.com.my",
+    "description": "Malaysia",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },{
+    "id": "",
+    "name": "straits times",
+    "category": "news",
+    "url": "https://www.straitstimes.com",
+    "description": "Singapura",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  }, 
+  {
+    "id": "",
+    "name": "Suara",
+    "category": "news",
+    "url": "https://www.suara.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Antaranews",
+    "category": "news",
+    "url": "https://www.antaranews.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Beritasatu",
+    "category": "news",
+    "url": "https://www.beritasatu.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Inews",
+    "category": "news",
+    "url": "https://www.inews.id",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Idntimes",
+    "category": "news",
+    "url": "https://www.idntimes.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Google",
+    "category": "search",
+    "url": "https://www.google.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Dogpile",
+    "category": "search",
+    "url": "https://www.dogpile.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Hotbot",
+    "category": "search",
+    "url": "https://www.hotbot.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Bing",
+    "category": "search",
+    "url": "https://www.bing.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Baidu",
+    "category": "search",
+    "url": "https://www.baidu.com",
+    "description": "China",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Sogou",
+    "category": "search",
+    "url": "https://www.sogou.com",
+    "description": "China",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Yandex",
+    "category": "search",
+    "url": "https://www.yandex.com",
+    "description": "Rusia",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Neeva",
+    "category": "search",
+    "url": "https://www.neeva.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Qmamu",
+    "category": "search",
+    "url": "https://www.qmamu.com",
+    "description": "India",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Yahoo",
+    "category": "search",
+    "url": "https://www.yahoo.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "You",
+    "category": "search",
+    "url": "https://www.you.com",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Fiqfuq",
+    "category": "Tiktok 18",
+    "url": "https://fiqfuq.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Xxxtik",
+    "category": "Tiktok 18",
+    "url": "https://xxxtik.com/",
+    "description": "18+",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Fikfap",
+    "category": "Tiktok 18",
+    "url": "https://fikfap.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "Fikfap",
+    "category": "Tiktok 18",
+    "url": "https://fikfap.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "pin.porn",
+    "category": "Tiktok 18",
+    "url": "https://pin.porn/",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  },
+  {
+    "id": "",
+    "name": "onlytik",
+    "category": "Tiktok 18",
+    "url": "https://onlytik.com/",
+    "description": "",
+    "icon": "",
+    "websiteType": "app",
+    "tags": []
+  } 
+
+
+
+
+];
+
+            const container = document.getElementById('container');
+            const menu = document.getElementById('menu');
+
+            const categories = {};
+
+            // Organize items by category
+            data.forEach(item => {
+                if (!categories[item.category]) {
+                    categories[item.category] = [];
+                }
+                categories[item.category].push(item);
+            });
+
+            // Create ad card
+            const adCard = document.createElement('div');
+            adCard.classList.add('ad-card');
+            adCard.textContent = "Iklan klik.";
+            adCard.addEventListener('click', moveAdCard);
+
+            // Function to move ad card to a random category
+            function moveAdCard() {
+                const categoryCards = document.querySelectorAll('.category-card');
+                const randomCategory = categoryCards[Math.floor(Math.random() * categoryCards.length)];
+                randomCategory.insertBefore(adCard, randomCategory.children[1]);
+            }
+
+            function createCategoryTitle(category) {
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.textContent = category;
+                return categoryTitle;
+            }
+
+            function createCategoryCard(categoryId, category) {
+                const categoryCard = document.createElement('div');
+                categoryCard.classList.add('category-card');
+                categoryCard.id = categoryId;
+                categoryCard.appendChild(createCategoryTitle(category));
+                return categoryCard;
+            }
+
+            for (const category in categories) {
+                const categoryId = category.replace(/\s+/g, '-').toLowerCase();
+
+                // Add category link to menu
+                const categoryLink = document.createElement('a');
+                categoryLink.href = `#${categoryId}`;
+                categoryLink.textContent = category;
+                menu.appendChild(categoryLink);
+
+                // Create category card
+                const categoryCard = createCategoryCard(categoryId, category);
+
+                categories[category].forEach(item => {
+                    const card = document.createElement('div');
+                    card.classList.add('card');
+
+                    const title = document.createElement('h3');
+                    title.textContent = item.name;
+                    card.appendChild(title);
+
+                    const description = document.createElement('p');
+                    description.textContent = ` ${item.description}`;
+                    card.appendChild(description);
+
+                    const link = document.createElement('a');
+                    link.href = item.url;
+                    link.textContent = 'Lihat';
+                    link.target = '_blank';
+                    card.appendChild(link);
+
+                    if (item.tags && item.tags.length > 0) {
+                        const tagsContainer = document.createElement('div');
+                        tagsContainer.classList.add('tags');
+
+                        item.tags.forEach(tag => {
+                            const tagElement = document.createElement('span');
+                            tagElement.textContent = tag;
+                            tagsContainer.appendChild(tagElement);
+                        });
+
+                        card.appendChild(tagsContainer);
+                    }
+
+                    categoryCard.appendChild(card);
+                });
+
+                container.appendChild(categoryCard);
+            }
+
+            // Insert ad card initially
+            moveAdCard();
+        });
+    </script>
+</body>
+</html>
