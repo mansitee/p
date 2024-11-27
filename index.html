@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>File Manager on GitHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="color-scheme" content="light only">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            width: 100%;
+            height: 100%;
+        }
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+        body {
+            max-width: 600px;
+            margin: 0 auto;
+            height: 100%;
+            user-select: none;
+            background: #303030;
+            color: #C1C1C1;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            width: 98%;
+            margin: 5px auto;
+            padding: 0 10px;
+            flex: 1;
+        }
+        h1 {
+            text-align: center;
+        }
+        .file-manager {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #404040;
+        }
+        .current-directory {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .current-directory button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #505050;
+            color: #C1C1C1;
+            border: none;
+            border-radius: 5px;
+        }
+        .file-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .file-name {
+            flex: 1;
+            color: #C1C1C1;
+        }
+        .file-name:hover {
+            background-color: #333;
+            cursor: pointer;
+        }
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .file-actions button {
+            background-color: #505050;
+            color: #C1C1C1;
+            border: none;
+            border-radius: 24px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .file-actions button:hover {
+            background-color: #666;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #303030;
+            color: #C1C1C1;
+            border-top: 1px solid #ccc;
+        }
+        .file-viewer, .media-viewer {
+            background-color: #333;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            color: #fff;
+            font-family: monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .media-viewer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        video, audio {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        /* Button Back at the top-left */
+        #back-to-repos {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #505050;
+            color: #C1C1C1;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        #back-to-repos:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <button id="back-to-repos" style="display: none;">Back to Repositories</button> <!-- Back to Repos Button -->
+
+    <div class="container">
+        <h1>File Manager on GitHub</h1>
+        <div class="file-manager">
+            <div class="current-directory">
+                <button id="back-button" style="display: none;">Back</button>
+                <span>Current Repository: </span> <span id="current-repository">None</span>
+            </div>
+            <div class="files" id="file-list">
+                <!-- File list will be displayed here -->
+            </div>
+            <div class="file-viewer" id="file-viewer" style="display: none;"></div>
+            <div class="media-viewer" id="media-viewer" style="display: none;"></div>
+        </div>
+    </div>
+    <footer>
+        Footer by ChatGPT
+    </footer>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const username = 'mansitee'; // Replace with your GitHub username
+            let currentDirectory = '/';
+            let currentRepository = '';
+
+            // Fetch all repositories
+            function fetchRepositories() {
+                const apiUrl = `https://api.github.com/users/${username}/repos`;
+
+                $.get(apiUrl)
+                    .done(function (data) {
+                        $('#file-list').empty();
+                        data.forEach(function (repo) {
+                            const repoName = repo.name;
+                            $('#file-list').append(`
+                                <div class="file-row">
+                                    <div class="file-name repo" data-repo="${repoName}">
+                                        ${repoName}
+                                    </div>
+                                </div>
+                            `);
+                        });
+                    })
+                    .fail(function (error) {
+                        console.error('Error:', error);
+                        alert('Failed to fetch repositories. Please try again later.');
+                    });
+            }
+
+            // Fetch files in selected repository
+            function fetchFiles(repo) {
+                currentRepository = repo;
+                const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents${currentDirectory}`;
+                $('#current-repository').text(repo);
+                $('#back-to-repos').show(); // Show the back-to-repos button
+
+                $.get(apiUrl)
+                    .done(function (data) {
+                        $('#file-list').empty();
+                        $('#file-viewer').hide();
+                        $('#media-viewer').hide();
+
+                        data.forEach(function (file) {
+                            const fileType = file.type === 'dir' ? 'folder' : 'file';
+                            const fileName = fileType === 'folder' ? file.name + '/' : file.name;
+                            const fileExtension = fileName.split('.').pop().toLowerCase();
+                            const fileUrl = `https://raw.githubusercontent.com/${username}/${repo}/main${currentDirectory}${file.name}`;
+
+                            const fileRowHtml = `
+                                <div class="file-row">
+                                    <div class="file-name ${fileType}" data-type="${fileType}" data-name="${file.name}" data-url="${fileUrl}">
+                                        ${fileName}
+                                    </div>
+                                    <div class="file-actions">
+                                        ${fileType === 'file' ? `<a href="${fileUrl}" target="_blank" download><button>⬇️</button></a>` : ''}
+                                        ${fileType === 'file' ? `<button class="copy-link" data-link="${fileUrl}">📋</button>` : ''}
+                                    </div>
+                                </div>
+                            `;
+
+                            $('#file-list').append(fileRowHtml);
+                        });
+
+                        $('#current-directory').text(currentDirectory);
+                        $('#back-button').toggle(currentDirectory !== '/');
+                    })
+                    .fail(function (error) {
+                        console.error('Error:', error);
+                        alert('Failed to fetch files. Please try again later.');
+                    });
+            }
+
+            // Display media (image, video, audio)
+            function displayMedia(fileUrl, fileExtension) {
+                $('#media-viewer').empty().show();
+
+                if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileExtension)) {
+                    $('#media-viewer').html(`<img src="${fileUrl}" alt="Image">`);
+                } else if (['mp4', 'webm', 'ogg'].includes(fileExtension)) {
+                    $('#media-viewer').html(`<video controls><source src="${fileUrl}" type="video/${fileExtension}">Your browser does not support the video tag.</video>`);
+                } else if (['mp3', 'ogg', 'wav'].includes(fileExtension)) {
+                    $('#media-viewer').html(`<audio controls><source src="${fileUrl}" type="audio/${fileExtension}">Your browser does not support the audio tag.</audio>`);
+                } else {
+                    $('#media-viewer').html('<p>Unsupported media type.</p>');
+                }
+            }
+
+            // Fetch file content (non-media)
+            function fetchFileContent(fileUrl) {
+                $.get(fileUrl)
+                    .done(function (data) {
+                        $('#file-viewer').text(data).show();
+                    })
+                    .fail(function (error) {
+                        console.error('Error:', error);
+                        alert('Failed to fetch file content.');
+                    });
+            }
+
+            // Event handlers
+            $('#file-list').on('click', '.repo', function () {
+                const repo = $(this).data('repo');
+                fetchFiles(repo);
+            });
+
+            $('#file-list').on('click', '.file-name', function () {
+                const fileType = $(this).data('type');
+                const fileName = $(this).data('name');
+                const fileUrl = $(this).data('url');
+                const fileExtension = fileName.split('.').pop().toLowerCase();
+
+                if (fileType === 'folder') {
+                    currentDirectory += fileName + '/';
+                    fetchFiles(currentRepository);
+                } else {
+                    if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'mp4', 'webm', 'ogg', 'mp3', 'wav'].includes(fileExtension)) {
+                        displayMedia(fileUrl, fileExtension);
+                        $('#file-viewer').hide();
+                    } else {
+                        fetchFileContent(fileUrl);
+                    }
+                }
+            });
+
+            $('#file-list').on('click', '.copy-link', function () {
+                const link = $(this).data('link');
+                navigator.clipboard.writeText(link).then(() => {
+                    alert('Link copied to clipboard!');
+                }).catch((error) => {
+                    console.error('Error copying link:', error);
+                });
+            });
+
+            // Back button for directory navigation
+            $('#back-button').on('click', function () {
+                if (currentDirectory !== '/') {
+                    currentDirectory = currentDirectory.substring(0, currentDirectory.lastIndexOf('/'));
+                    if (currentDirectory === '') {
+                        currentDirectory = '/';
+                    }
+                    fetchFiles(currentRepository);
+                }
+            });
+
+            // Back to repositories button
+            $('#back-to-repos').on('click', function () {
+                fetchRepositories();
+                $('#back-to-repos').hide();
+                $('#current-repository').text('None');
+                $('#current-directory').text('');
+                $('#file-list').empty();
+            });
+
+            fetchRepositories();
+        });
+    </script>
+</body>
+</html>
