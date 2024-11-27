@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deteksi Browser dan Perangkat</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #info p {
+            font-size: 16px;
+            color: #555;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Deteksi Browser dan Perangkat</h1>
+        <div id="info">
+            <p id="browser"></p>
+            <p id="device"></p>
+            <p id="os"></p>
+            <p id="phone"></p>
+        </div>
+    </div>
+
+    <script>
+        function detectBrowser() {
+            let browserName;
+            if (navigator.userAgent.indexOf("Firefox") !== -1) {
+                browserName = "Mozilla Firefox";
+            } else if (navigator.userAgent.indexOf("SamsungBrowser") !== -1) {
+                browserName = "Samsung Browser";
+            } else if (navigator.userAgent.indexOf("Chrome") !== -1) {
+                browserName = "Google Chrome";
+            } else if (navigator.userAgent.indexOf("Safari") !== -1) {
+                browserName = "Safari";
+            } else if (navigator.userAgent.indexOf("Trident") !== -1) {
+                browserName = "Internet Explorer";
+            } else {
+                browserName = "Unknown Browser";
+            }
+            return browserName;
+        }
+
+        function detectDevice() {
+            const ua = navigator.userAgent;
+            if (/android/i.test(ua)) {
+                return "Android Device";
+            } else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+                return "iOS Device";
+            } else {
+                return "Unknown Device";
+            }
+        }
+
+        function detectOS() {
+            const platform = navigator.platform;
+            if (platform.indexOf("Win") !== -1) {
+                return "Windows OS";
+            } else if (platform.indexOf("Mac") !== -1) {
+                return "macOS";
+            } else if (platform.indexOf("Linux") !== -1) {
+                return "Linux OS";
+            } else {
+                return "Unknown OS";
+            }
+        }
+
+        function detectPhone() {
+            const ua = navigator.userAgent;
+            if (/Samsung|SM-/i.test(ua)) {
+                return "Samsung";
+            } else if (/iPhone|iPad/i.test(ua)) {
+                return "Apple";
+            } else if (/Pixel/i.test(ua)) {
+                return "Google Pixel";
+            } else if (/Xiaomi|Redmi/i.test(ua)) {
+                return "Xiaomi";
+            } else if (/Realme/i.test(ua)) {
+                return "Realme";
+            } else if (/Huawei/i.test(ua)) {
+                return "Huawei";
+            } else if (/OPPO/i.test(ua)) {
+                return "OPPO";
+            } else if (/OnePlus/i.test(ua)) {
+                return "OnePlus";
+            } else if (/Sony/i.test(ua)) {
+                return "Sony";
+            } else if (/Nokia/i.test(ua)) {
+                return "Nokia";
+            } else {
+                return "Unknown Phone";
+            }
+        }
+
+        document.getElementById('browser').textContent = "Browser: " + detectBrowser();
+        document.getElementById('device').textContent = "Perangkat: " + detectDevice();
+        document.getElementById('os').textContent = "Sistem Operasi: " + detectOS();
+        document.getElementById('phone').textContent = "Merek Ponsel: " + detectPhone();
+    </script>
+</body>
+</html>
