@@ -1,0 +1,16 @@
+body {
+    text-align: center;
+    padding-right: 10%;
+    padding-left: 10%;
+    background-color: rgb(236, 236, 236);
+}
+h1 {
+    font-size: 3em;
+}
+p, 
+a {
+    font-size: 18px;
+}
+p {
+    text-align: justify;
+}
