@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Device Detector</title>
+  <style>
+body {font-family: Arial, sans-serif;margin:0;padding:0;background-color: #121212;color:#9E9E9E;display:flex;
+justify-content:center;align-items: center;theight:100vh;-webkit-tap-highlight-color:transparent;}   	 
+  
+#container {background:#1e1e1e;margin:10px;margin-bottom:50px;border-radius:8px;box-shadow:0 4px 8px rgba(0, 0,0,0.2);max-width:600px;width:90%; padding:0.5rem;}    
+ 
+h1{text-align:center;margin-bottom: 20px;font-size:1.3em;color: #ccc;font-family: Arial, sans-serif;}    
+    
+#results p {margin:10px 0; border-radius:10px;}    
+    
+#results p span{float:right;border-radius:5px;padding:0 5px 0 5px;box-shadow:0 4px 8px rgba(0,0,0,0.1);  tborder: 1px solid white;transition: transform 0.2s, box-shadow 0.3s;background: #333;color: #ddd;}       
+
+.top{float:right;top:0; right:20px;border-radius:5px;padding:0 5px 0 5px;box-shadow:0 4px 8px rgba(0,0,0,0.1);  tborder: 1px solid white;transition: transform 0.2s, box-shadow 0.3s;background: #ccc;color: #333;}       
+    
+    
+ .footer{margin:5px 0; border-radius: 5px; padding:10px 0; box-shadow:0 4px 8px rgba(0,0,0, 0.1); tborder: 1px solid white; transition: transform 0.2s, box-shadow 0.3s;background: #333;color: #ddd;}  
+ 
+ .footer h1{text-align:center;margin-bottom: 10px;font-size:1em;color: #ccc;font-family: Arial, sans-serif;}  
+ 
+ 
+    
+ #results p .info{margin:6px 0; border-radius:5px;width:95%;padding:10px;box-shadow:0 4px 8px rgba(0,0,0,0.1); border-left: 5px solid #9E9E9E;transition: transform 0.2s, box-shadow 0.3s;background:#333;color: #ddd;} 
+
+.help {position:fixed;bottom:0;width: 100%;background:#333;color:#ddd;
+padding:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);z-index:1000;display: flex;align-items:center;justify-content: center;}    
+    
+  </style>
+</head>
+<body>
+	 
+	<div class="help"> Can make mistakes. Check important info!.</div>
+	
+  <div id="container">
+    <h1>Device Detector <sup> <span id="language"class="top">Detecting...</span></sup> </h1>
+    <div id="results">
+  <p><strong>Connection Speed:</strong> <span id="connectionSpeed">Detecting...</span></p>
+      <p><strong>Network Type:</strong> <span id="networkType">Detecting...</span></p>
+      <p><strong>IP Address:</strong> <span id="ipAddress">Detecting...</span></p>
+      <p><strong>Browser:</strong> <span id="browser">Detecting...</span></p>
+      <p><strong>Browser Version:</strong> <span id="browserVersion">Detecting...</span></p>
+      <p><strong>Device Type:</strong> <span id="deviceType">Detecting...</span></p>
+      <p><strong>Operating System:</strong> <span id="os">Detecting...</span></p>
+      <p><strong>CPU:</strong> <span id="cpu">Detecting...</span></p>
+      <p><strong>Available Memory:</strong> <span id="memory">Detecting...</span></p>
+      <p><strong>Sensors Detected:</strong> <span id="sensors">Detecting...</span></p>
+      <p><strong>Battery Level:</strong> <span id="batteryLevel">Detecting...</span></p>
+      <p><strong>Touch Support:</strong> <span id="touchSupport">Detecting...</span></p>
+      
+      
+    <center> ____________ </center> 
+      
+      
+   <p><strong>Screen Resolution:</strong> <span id="screenResolution">Detecting...</span></p>
+<p><strong>Color Depth:</strong> <span id="colorDepth">Detecting...</span></p>
+<p><strong>Time Zone:</strong> <span id="timeZone">Detecting...</span></p>
+<p><strong>Platform:</strong> <span id="platform">Detecting...</span></p>
+<p><strong>Language:</strong> <span id="language">Detecting...</span></p>
+<p><strong>Cookies Enabled:</strong> <span id="cookiesEnabled">Detecting...</span></p>
+<p><strong>JavaScript Enabled:</strong> <span id="javascriptEnabled">Detecting...</span></p>
+   
+      <center> ____________ </center> 
+      
+ <p><strong>CPU Cores:</strong> <span id="cpuCores">Detecting...</span></p>
+<p><strong>GPU Renderer:</strong> <span id="gpuRenderer">Detecting...</span></p>
+<p><strong>GPU Vendor:</strong> <span id="gpuVendor">Detecting...</span></p>
+<p><strong>Heap Size:</strong> <span id="heapSize">Detecting...</span></p>
+<p><strong>User Agent:</strong> <span id="userAgent"class="info">Detecting...</span></p>
+<p><strong>Browser Engine:</strong> <span id="browserEngine">Detecting...</span></p>
+<p><strong>Browser Plugins:</strong> <span id="plugins">Detecting...</span></p>
+     
+<center> ____________ </center> 
+
+<p><strong>Refresh Rate:</strong> <span id="refreshRate">Detecting...</span></p>
+<p><strong>Pixel Density:</strong> <span id="pixelDensity">Detecting...</span></p>
+<p><strong>Physical Screen Size:</strong> <span id="physicalScreenSize">Detecting...</span></p>
+<p><strong>Clipboard Support:</strong> <span id="clipboardSupport">Detecting...</span></p>
+<p><strong>WebRTC Support:</strong> <span id="webrtcSupport">Detecting...</span></p>
+<p><strong>Online Status:</strong> <span id="onlineStatus">Detecting...</span></p>
+<p><strong>Do Not Track:</strong> <span id="doNotTrack">Detecting...</span></p>
+<p><strong>Preferred Color Scheme:</strong> <span id="preferredColorScheme">Detecting...</span></p>
+
+  <center> ____________ </center> 
+  
+<p><strong>Device Orientation:</strong> <span id="orientation"class="info">Detecting...</span></p>
+<p><strong>Accelerometer:</strong> <span id="accelerometer">Detecting...</span></p>
+<p><strong>Geolocation:</strong> <span id="geolocation">Detecting...</span></p>
+<p><strong>Camera Availability:</strong> <span id="camera">Detecting...</span></p>
+<p><strong>Microphone Availability:</strong> <span id="microphone">Detecting...</span></p>
+<p><strong>Ping Latency:</strong> <span id="pingLatency">Detecting...</span></p>
+<p><strong>Network RTT:</strong> <span id="networkRTT">Detecting...</span></p>
+<p><strong>FPS:</strong> <span id="fps">Calculating...</span></p>
+
+<center> ____________ </center> 
+
+<p><strong>GPU Information:</strong> <span id="gpuInfo">Detecting...</span></p>
+<p><strong>WebGL Extensions:</strong> <span id="webglExtensions"class="info">Detecting...</span></p>
+<p><strong>Multi-Monitor Support:</strong> <span id="multiMonitor">Detecting...</span></p>
+<p><strong>Screen Orientation:</strong> <span id="screenOrientation">Detecting...</span></p>
+<p><strong>CPU Clock Speed:</strong> <span id="cpuClockSpeed">Calculating...</span></p>
+<p><strong>Time Zone:</strong> <span id="timeZone">Detecting...</span></p>
+<p><strong>Language Preferences:</strong> <span id="languagePreferences">Detecting...</span></p>
+<p><strong>Permissions Status:</strong> <span id="permissions"class="info">Detecting...</span></p>
+<p><strong>Cookies Enabled:</strong> <span id="cookiesEnabled">Detecting...</span></p>
+<p><strong>Local Storage Available:</strong> <span id="localStorageAvailable">Detecting...</span></p>
+<p><strong>Media Playback Support:</strong> <span id="mediaSupport"class="info">Detecting...</span></p>
+<p><strong>VR Support:</strong> <span id="vrSupport">Detecting...</span></p>
+<p><strong>AR Support:</strong> <span id="arSupport">Detecting...</span></p>
+
+
+<center> ____________ </center> 
+
+<div class="container">
+  <p><strong>Viewport Size:</strong> <span id="viewportSize">Detecting...</span></p>
+  <p><strong>Phone Manufacturer:</strong> <span id="phoneManufacturer">Detecting...</span></p>
+  <p><strong>ISP Name:</strong> <span id="ispName">Detecting...</span></p>
+  <p><strong>Connection Type:</strong> <span id="connectionType">Detecting...</span></p>
+  <p><strong>Browser Language:</strong> <span id="browserLanguage">Detecting...</span></p>
+  <p><strong>Operating System:</strong> <span id="operatingSystem">Detecting...</span></p>
+  <p><strong>Device Orientation:</strong> <span id="deviceOrientation">Detecting...</span></p>
+  <p><strong>Screen DPI:</strong> <span id="screenDPI">Detecting...</span></p>
+  <p><strong>Internet Speed (Ping):</strong> <span id="internetSpeed">Testing...</span></p>
+  <p><strong>Cookies Enabled:</strong> <span id="cookiesEnabled">Detecting...</span></p>
+</div>
+
+
+
+
+<div class="container">
+  <p><strong>Advertised OS Version:</strong> <span id="advertisedDeviceOSVersion">Detecting...</span></p>
+  <p><strong>Complete Device Name:</strong> <span id="completeDeviceName">Detecting...</span></p>
+  <p><strong>Max Image Height:</strong> <span id="maxImageHeight">Detecting...</span></p>
+  <p><strong>Max Image Width:</strong> <span id="maxImageWidth">Detecting...</span></p>
+  <p><strong>Advertised App Name:</strong> <span id="advertisedAppName">Detecting...</span></p>
+  <p><strong>Release Date:</strong> <span id="releaseDate">Detecting...</span></p>
+</div>
+
+
+
+
+
+
+
+
+<div class="container">
+  <h3>Browser Information</h3>
+  <p><strong>Browser Name:</strong> <span id="browserName">Detecting...</span></p>
+  <p><strong>Browser Version:</strong> <span id="browserVersion">Detecting...</span></p>
+  <p><strong>User Agent:</strong> <span id="userAgent">Detecting...</span></p>
+  <p><strong>JavaScript Enabled:</strong> <span id="javascriptEnabled">Yes</span></p>
+  <p><strong>Do Not Track:</strong> <span id="doNotTrack">Detecting...</span></p>
+  <p><strong>Cookies Enabled:</strong> <span id="cookiesEnabled">Detecting...</span></p>
+  <p><strong>Browser Vendor:</strong> <span id="browserVendor">Detecting...</span></p>
+  <p><strong>Browser Engine:</strong> <span id="browserEngine">Detecting...</span></p>
+</div>
+
+  </div>
+  
+  
+  <div class="footer">
+  	<h1>Dibuat Oleh <u> Saya</u> Dan <u> AI</u> </h1>
+  	  </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Browser Information
+      const userAgent = navigator.userAgent;
+      const browserData = getBrowserData(userAgent);
+      document.getElementById("browser").textContent = browserData.name;
+      document.getElementById("browserVersion").textContent = browserData.version;
+
+      // Operating System
+      document.getElementById("os").textContent = getOS(userAgent);
+
+      // Device Type
+      document.getElementById("deviceType").textContent = /Mobile|Android|iPhone/.test(userAgent)
+        ? "Mobile"
+        : "Desktop";
+
+      // Connection Speed
+      if (navigator.connection) {
+        document.getElementById("connectionSpeed").textContent = `${navigator.connection.downlink} Mbps`;
+        document.getElementById("networkType").textContent = navigator.connection.effectiveType;
+      }
+
+      // Touch Support
+      document.getElementById("touchSupport").textContent = "ontouchstart" in window ? "Yes" : "No";
+
+      // Sensors Detected
+      document.getElementById("sensors").textContent = navigator.maxTouchPoints ? "Yes" : "No";
+
+      // Battery Information
+      if (navigator.getBattery) {
+        navigator.getBattery().then((battery) => {
+          document.getElementById("batteryLevel").textContent = `${Math.round(battery.level * 100)}%`;
+        });
+      } else {
+        document.getElementById("batteryLevel").textContent = "Not Supported";
+      }
+
+      // IP Address (External API)
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("ipAddress").textContent = data.ip;
+        });
+
+      // Memory Information
+      if (navigator.deviceMemory) {
+        document.getElementById("memory").textContent = `${navigator.deviceMemory} GB`;
+      } else {
+        document.getElementById("memory").textContent = "Not Available";
+      }
+    });
+
+    function getBrowserData(ua) {
+      let browserName = "Unknown";
+      let browserVersion = "Unknown";
+
+      if (/Chrome/.test(ua)) {
+        browserName = "Chrome";
+        browserVersion = ua.match(/Chrome\/(\d+)/)[1];
+      } else if (/Firefox/.test(ua)) {
+        browserName = "Firefox";
+        browserVersion = ua.match(/Firefox\/(\d+)/)[1];
+      } else if (/Safari/.test(ua)) {
+        browserName = "Safari";
+        browserVersion = ua.match(/Version\/(\d+)/)[1];
+      }
+
+      return { name: browserName, version: browserVersion };
+    }
+
+    function getOS(ua) {
+      if (/Windows/.test(ua)) return "Windows";
+      if (/Mac OS/.test(ua)) return "MacOS";
+      if (/Android/.test(ua)) return "Android";
+      if (/iPhone|iPad/.test(ua)) return "iOS";
+      return "Unknown";
+    }
+    
+    
+    
+    document.addEventListener("DOMContentLoaded", () => {
+  // Browser Information
+  const userAgent = navigator.userAgent;
+  const browserData = getBrowserData(userAgent);
+  document.getElementById("browser").textContent = browserData.name;
+  document.getElementById("browserVersion").textContent = browserData.version;
+
+  // Operating System
+  document.getElementById("os").textContent = getOS(userAgent);
+
+  // Device Type
+  document.getElementById("deviceType").textContent = /Mobile|Android|iPhone/.test(userAgent)
+    ? "Mobile"
+    : "Desktop";
+
+  // Connection Speed
+  if (navigator.connection) {
+    document.getElementById("connectionSpeed").textContent = `${navigator.connection.downlink} Mbps`;
+    document.getElementById("networkType").textContent = navigator.connection.effectiveType;
+  }
+
+  // Touch Support
+  document.getElementById("touchSupport").textContent = "ontouchstart" in window ? "Yes" : "No";
+
+  // Sensors Detected
+  document.getElementById("sensors").textContent = navigator.maxTouchPoints ? "Yes" : "No";
+
+  // Battery Information
+  if (navigator.getBattery) {
+    navigator.getBattery().then((battery) => {
+      document.getElementById("batteryLevel").textContent = `${Math.round(battery.level * 100)}%`;
+    });
+  } else {
+    document.getElementById("batteryLevel").textContent = "Not Supported";
+  }
+
+  // IP Address (External API)
+  fetch("https://api.ipify.org?format=json")
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("ipAddress").textContent = data.ip;
+    });
+
+  // Memory Information
+  if (navigator.deviceMemory) {
+    document.getElementById("memory").textContent = `${navigator.deviceMemory} GB`;
+  } else {
+    document.getElementById("memory").textContent = "Not Available";
+  }
+
+  // Additional Features
+  document.getElementById("screenResolution").textContent = `${window.screen.width} x ${window.screen.height}`;
+  document.getElementById("colorDepth").textContent = `${window.screen.colorDepth} bit`;
+  document.getElementById("timeZone").textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  document.getElementById("platform").textContent = navigator.platform;
+  document.getElementById("language").textContent = navigator.language;
+  document.getElementById("cookiesEnabled").textContent = navigator.cookieEnabled ? "Yes" : "No";
+  document.getElementById("javascriptEnabled").textContent = "Yes"; // Always enabled if script runs
+});
+
+// Helper Functions
+function getBrowserData(ua) {
+  let browserName = "Unknown";
+  let browserVersion = "Unknown";
+
+  if (/Chrome/.test(ua)) {
+    browserName = "Chrome";
+    browserVersion = ua.match(/Chrome\/(\d+)/)[1];
+  } else if (/Firefox/.test(ua)) {
+    browserName = "Firefox";
+    browserVersion = ua.match(/Firefox\/(\d+)/)[1];
+  } else if (/Safari/.test(ua)) {
+    browserName = "Safari";
+    browserVersion = ua.match(/Version\/(\d+)/)[1];
+  }
+
+  return { name: browserName, version: browserVersion };
+}
+
+function getOS(ua) {
+  if (/Windows/.test(ua)) return "Windows";
+  if (/Mac OS/.test(ua)) return "MacOS";
+  if (/Android/.test(ua)) return "Android";
+  if (/iPhone|iPad/.test(ua)) return "iOS";
+  return "Unknown";
+}
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Browser Information
+  const userAgent = navigator.userAgent;
+  const browserData = getBrowserData(userAgent);
+  document.getElementById("browser").textContent = browserData.name;
+  document.getElementById("browserVersion").textContent = browserData.version;
+
+  // Operating System
+  document.getElementById("os").textContent = getOS(userAgent);
+
+  // Device Type
+  document.getElementById("deviceType").textContent = /Mobile|Android|iPhone/.test(userAgent)
+    ? "Mobile"
+    : "Desktop";
+
+  // Connection Speed
+  if (navigator.connection) {
+    document.getElementById("connectionSpeed").textContent = `${navigator.connection.downlink} Mbps`;
+    document.getElementById("networkType").textContent = navigator.connection.effectiveType;
+  }
+
+  // Touch Support
+  document.getElementById("touchSupport").textContent = "ontouchstart" in window ? "Yes" : "No";
+
+  // Sensors Detected
+  document.getElementById("sensors").textContent = navigator.maxTouchPoints ? "Yes" : "No";
+
+  // Battery Information
+  if (navigator.getBattery) {
+    navigator.getBattery().then((battery) => {
+      document.getElementById("batteryLevel").textContent = `${Math.round(battery.level * 100)}%`;
+    });
+  } else {
+    document.getElementById("batteryLevel").textContent = "Not Supported";
+  }
+
+  // IP Address (External API)
+  fetch("https://api.ipify.org?format=json")
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("ipAddress").textContent = data.ip;
+    });
+
+  // Memory Information
+  if (navigator.deviceMemory) {
+    document.getElementById("memory").textContent = `${navigator.deviceMemory} GB`;
+  } else {
+    document.getElementById("memory").textContent = "Not Available";
+  }
+
+  // Screen Details
+  document.getElementById("screenResolution").textContent = `${window.screen.width} x ${window.screen.height}`;
+  document.getElementById("colorDepth").textContent = `${window.screen.colorDepth} bit`;
+
+  // Time Zone and Locale
+  document.getElementById("timeZone").textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  document.getElementById("language").textContent = navigator.language;
+
+  // Cookies Enabled
+  document.getElementById("cookiesEnabled").textContent = navigator.cookieEnabled ? "Yes" : "No";
+
+  // JavaScript Enabled
+  document.getElementById("javascriptEnabled").textContent = "Yes";
+
+  // Hardware Details
+  const canvas = document.createElement("canvas");
+  const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+  if (gl) {
+    const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+    if (debugInfo) {
+      document.getElementById("gpuRenderer").textContent = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+      document.getElementById("gpuVendor").textContent = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+    }
+  }
+  document.getElementById("cpuCores").textContent = navigator.hardwareConcurrency || "Not Available";
+  document.getElementById("heapSize").textContent = `${Math.round(window.performance.memory.jsHeapSizeLimit / (1024 * 1024))} MB`;
+
+  // User Agent and Plugins
+  document.getElementById("userAgent").textContent = userAgent;
+  document.getElementById("browserEngine").textContent = getBrowserEngine(userAgent);
+  document.getElementById("plugins").textContent = navigator.plugins.length
+    ? Array.from(navigator.plugins).map((plugin) => plugin.name).join(", ")
+    : "None";
+});
+
+// Helper Functions
+function getBrowserData(ua) {
+  let browserName = "Unknown";
+  let browserVersion = "Unknown";
+
+  if (/Chrome/.test(ua)) {
+    browserName = "Chrome";
+    browserVersion = ua.match(/Chrome\/(\d+)/)[1];
+  } else if (/Firefox/.test(ua)) {
+    browserName = "Firefox";
+    browserVersion = ua.match(/Firefox\/(\d+)/)[1];
+  } else if (/Safari/.test(ua)) {
+    browserName = "Safari";
+    browserVersion = ua.match(/Version\/(\d+)/)[1];
+  }
+
+  return { name: browserName, version: browserVersion };
+}
+
+function getOS(ua) {
+  if (/Windows/.test(ua)) return "Windows";
+  if (/Mac OS/.test(ua)) return "MacOS";
+  if (/Android/.test(ua)) return "Android";
+  if (/iPhone|iPad/.test(ua)) return "iOS";
+  return "Unknown";
+}
+
+function getBrowserEngine(ua) {
+  if (/WebKit/.test(ua)) return "WebKit";
+  if (/Blink/.test(ua)) return "Blink";
+  if (/Gecko/.test(ua) && !/like Gecko/.test(ua)) return "Gecko";
+  return "Unknown";
+}
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Browser Information
+  const userAgent = navigator.userAgent;
+  const browserData = getBrowserData(userAgent);
+  document.getElementById("browser").textContent = browserData.name;
+  document.getElementById("browserVersion").textContent = browserData.version;
+
+  // Operating System
+  document.getElementById("os").textContent = getOS(userAgent);
+
+  // Device Type
+  document.getElementById("deviceType").textContent = /Mobile|Android|iPhone/.test(userAgent)
+    ? "Mobile"
+    : "Desktop";
+
+  // Connection Speed
+  if (navigator.connection) {
+    document.getElementById("connectionSpeed").textContent = `${navigator.connection.downlink} Mbps`;
+    document.getElementById("networkType").textContent = navigator.connection.effectiveType;
+  }
+
+  // Touch Support
+  document.getElementById("touchSupport").textContent = "ontouchstart" in window ? "Yes" : "No";
+
+  // Sensors Detected
+  document.getElementById("sensors").textContent = navigator.maxTouchPoints ? "Yes" : "No";
+
+  // Battery Information
+  if (navigator.getBattery) {
+    navigator.getBattery().then((battery) => {
+      document.getElementById("batteryLevel").textContent = `${Math.round(battery.level * 100)}%`;
+    });
+  } else {
+    document.getElementById("batteryLevel").textContent = "Not Supported";
+  }
+
+  // IP Address (External API)
+  fetch("https://api.ipify.org?format=json")
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("ipAddress").textContent = data.ip;
+    });
+
+  // Memory Information
+  if (navigator.deviceMemory) {
+    document.getElementById("memory").textContent = `${navigator.deviceMemory} GB`;
+  } else {
+    document.getElementById("memory").textContent = "Not Available";
+  }
+
+  // Screen Details
+  document.getElementById("screenResolution").textContent = `${window.screen.width} x ${window.screen.height}`;
+  document.getElementById("colorDepth").textContent = `${window.screen.colorDepth} bit`;
+
+  // Refresh Rate (Estimation)
+  measureRefreshRate().then((rate) => {
+    document.getElementById("refreshRate").textContent = `${rate} Hz`;
+  });
+
+  // Pixel Density
+  const dpi = window.devicePixelRatio * 96; // Assuming 96 DPI standard for CSS
+  document.getElementById("pixelDensity").textContent = `${dpi} DPI`;
+
+  // Physical Screen Size
+  const diagonalInches = Math.sqrt(
+    Math.pow(window.screen.width / dpi, 2) + Math.pow(window.screen.height / dpi, 2)
+  ).toFixed(2);
+  document.getElementById("physicalScreenSize").textContent = `${diagonalInches} inches`;
+
+  // Clipboard Support
+  document.getElementById("clipboardSupport").textContent =
+    navigator.clipboard ? "Yes" : "No";
+
+  // WebRTC Support
+  document.getElementById("webrtcSupport").textContent =
+    "RTCPeerConnection" in window ? "Yes" : "No";
+
+  // Online Status
+  document.getElementById("onlineStatus").textContent = navigator.onLine ? "Online" : "Offline";
+
+  // Do Not Track
+  document.getElementById("doNotTrack").textContent =
+    navigator.doNotTrack === "1" ? "Enabled" : "Disabled";
+
+  // Preferred Color Scheme
+  const preferredScheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "Dark"
+    : "Light";
+  document.getElementById("preferredColorScheme").textContent = preferredScheme;
+});
+
+// Helper Function to Measure Refresh Rate
+function measureRefreshRate() {
+  return new Promise((resolve) => {
+    let frameTimes = [];
+    let startTime = performance.now();
+
+    function measure(time) {
+      frameTimes.push(time - startTime);
+      if (frameTimes.length >= 10) {
+        const refreshRate = Math.round(1000 / (frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length));
+        resolve(refreshRate);
+      } else {
+        requestAnimationFrame(measure);
+      }
+      startTime = time;
+    }
+
+    requestAnimationFrame(measure);
+  });
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Device Orientation
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener("deviceorientation", (event) => {
+      document.getElementById("orientation").textContent = `
+        Azimuth: ${event.alpha?.toFixed(2) || "N/A"}, 
+        Pitch: ${event.beta?.toFixed(2) || "N/A"}, 
+        Roll: ${event.gamma?.toFixed(2) || "N/A"}
+      `;
+    });
+  } else {
+    document.getElementById("orientation").textContent = "Not Supported";
+  }
+
+  // Accelerometer
+  if (window.DeviceMotionEvent) {
+    window.addEventListener("devicemotion", (event) => {
+      const acc = event.accelerationIncludingGravity;
+      document.getElementById("accelerometer").textContent = `
+        X: ${acc.x?.toFixed(2) || "N/A"}, 
+        Y: ${acc.y?.toFixed(2) || "N/A"}, 
+        Z: ${acc.z?.toFixed(2) || "N/A"}
+      `;
+    });
+  } else {
+    document.getElementById("accelerometer").textContent = "Not Supported";
+  }
+
+  // Geolocation
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        document.getElementById("geolocation").textContent = `
+          Latitude: ${position.coords.latitude.toFixed(5)}, 
+          Longitude: ${position.coords.longitude.toFixed(5)}, 
+          Accuracy: ${position.coords.accuracy.toFixed(2)} meters
+        `;
+      },
+      (error) => {
+        document.getElementById("geolocation").textContent = `Error: ${error.message}`;
+      }
+    );
+  } else {
+    document.getElementById("geolocation").textContent = "Not Supported";
+  }
+
+  // Camera & Microphone Availability
+  navigator.mediaDevices
+    .enumerateDevices()
+    .then((devices) => {
+      const videoDevices = devices.filter((device) => device.kind === "videoinput");
+      const audioDevices = devices.filter((device) => device.kind === "audioinput");
+
+      document.getElementById("camera").textContent = videoDevices.length ? "Available" : "Not Available";
+      document.getElementById("microphone").textContent = audioDevices.length ? "Available" : "Not Available";
+    })
+    .catch((error) => {
+      document.getElementById("camera").textContent = "Error: " + error.message;
+      document.getElementById("microphone").textContent = "Error: " + error.message;
+    });
+
+  // Ping Latency (Using an external server)
+  const pingServer = "https://www.google.com";
+  const startTime = performance.now();
+  fetch(pingServer)
+    .then(() => {
+      const endTime = performance.now();
+      document.getElementById("pingLatency").textContent = `${(endTime - startTime).toFixed(2)} ms`;
+    })
+    .catch(() => {
+      document.getElementById("pingLatency").textContent = "Error Measuring Ping";
+    });
+
+  // Network RTT (Round-Trip Time)
+  if (navigator.connection?.rtt) {
+    document.getElementById("networkRTT").textContent = `${navigator.connection.rtt} ms`;
+  } else {
+    document.getElementById("networkRTT").textContent = "Not Supported";
+  }
+
+  // FPS Calculation
+  let lastFrameTime = performance.now();
+  let frameCount = 0;
+
+  function calculateFPS(now) {
+    frameCount++;
+    if (now - lastFrameTime >= 1000) {
+      document.getElementById("fps").textContent = `${frameCount} FPS`;
+      frameCount = 0;
+      lastFrameTime = now;
+    }
+    requestAnimationFrame(calculateFPS);
+  }
+  requestAnimationFrame(calculateFPS);
+});
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // GPU Information (WebGL)
+  const canvas = document.createElement("canvas");
+  const gl = canvas.getContext("webgl");
+  if (gl) {
+    const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+    const gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+    document.getElementById("gpuInfo").textContent = gpu || "Unavailable";
+  } else {
+    document.getElementById("gpuInfo").textContent = "Not Supported";
+  }
+
+  // WebGL Extensions
+  if (gl) {
+    const extensions = gl.getSupportedExtensions();
+    document.getElementById("webglExtensions").textContent = extensions.join(", ");
+  } else {
+    document.getElementById("webglExtensions").textContent = "Not Supported";
+  }
+
+  // Multi-Monitor Detection
+  const isMultiMonitor = screen.availWidth !== window.innerWidth || screen.availHeight !== window.innerHeight;
+  document.getElementById("multiMonitor").textContent = isMultiMonitor ? "Yes" : "No";
+
+  // Active Screen Orientation
+  const orientation = screen.orientation?.type || "Unavailable";
+  document.getElementById("screenOrientation").textContent = orientation;
+
+  // Clock Speed Estimation (CPU)
+  const start = performance.now();
+  for (let i = 0; i < 1e7; i++) {} // Busy loop
+  const end = performance.now();
+  const clockSpeed = (1e7 / (end - start) / 1e3).toFixed(2); // GHz (approximation)
+  document.getElementById("cpuClockSpeed").textContent = `${clockSpeed} GHz`;
+
+  // Time Zone
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  document.getElementById("timeZone").textContent = timeZone;
+
+  // Language Preferences
+  const languages = navigator.languages || [navigator.language];
+  document.getElementById("languagePreferences").textContent = languages.join(", ");
+
+  // Permissions Status (Geolocation, Notifications, etc.)
+  const permissionTypes = ["geolocation", "notifications", "clipboard-read"];
+  const permissions = await Promise.all(
+    permissionTypes.map(async (type) => {
+      try {
+        const status = await navigator.permissions.query({ name: type });
+        return `${type}: ${status.state}`;
+      } catch {
+        return `${type}: Not Supported`;
+      }
+    })
+  );
+  document.getElementById("permissions").textContent = permissions.join(", ");
+
+  // Cookie and Local Storage Status
+  document.getElementById("cookiesEnabled").textContent = navigator.cookieEnabled ? "Yes" : "No";
+  document.getElementById("localStorageAvailable").textContent = "localStorage" in window ? "Yes" : "No";
+
+  // Media Playback Support
+  const audio = document.createElement("audio");
+  const video = document.createElement("video");
+  const audioFormats = [
+    "audio/mpeg",
+    "audio/ogg",
+    "audio/wav",
+    "audio/webm"
+  ].filter((format) => audio.canPlayType(format));
+  const videoFormats = [
+    "video/mp4",
+    "video/webm",
+    "video/ogg"
+  ].filter((format) => video.canPlayType(format));
+  document.getElementById("mediaSupport").textContent = `Audio: ${audioFormats.join(", ")}, Video: ${videoFormats.join(", ")}`;
+
+  // VR and AR Support (WebXR)
+  if ("xr" in navigator) {
+    navigator.xr.isSessionSupported("immersive-vr").then((isSupported) => {
+      document.getElementById("vrSupport").textContent = isSupported ? "Yes" : "No";
+    });
+    navigator.xr.isSessionSupported("immersive-ar").then((isSupported) => {
+      document.getElementById("arSupport").textContent = isSupported ? "Yes" : "No";
+    });
+  } else {
+    document.getElementById("vrSupport").textContent = "Not Supported";
+    document.getElementById("arSupport").textContent = "Not Supported";
+  }
+});
+
+
+
+
+// Viewport Size (Width x Height)
+function getViewportSize() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  document.getElementById('viewportSize').textContent = `${width}x${height}`;
+}
+getViewportSize();
+
+// Phone Manufacturer (Using User-Agent)
+function getPhoneManufacturer() {
+  const userAgent = navigator.userAgent;
+  let manufacturer = 'Unknown';
+  
+  if (/iPhone|iPad|iPod/i.test(userAgent)) {
+    manufacturer = 'Apple';
+  } else if (/Samsung/i.test(userAgent)) {
+    manufacturer = 'Samsung';
+  } else if (/Huawei/i.test(userAgent)) {
+    manufacturer = 'Huawei';
+  } else if (/Xiaomi/i.test(userAgent)) {
+    manufacturer = 'Xiaomi';
+  } else if (/Google/i.test(userAgent)) {
+    manufacturer = 'Google';
+  }
+
+  document.getElementById('phoneManufacturer').textContent = manufacturer;
+}
+getPhoneManufacturer();
+
+// ISP Name (Can be done using external IP API service)
+async function getISPName() {
+  try {
+    const response = await fetch('https://ipinfo.io?token=YOUR_API_TOKEN');
+    const data = await response.json();
+    const isp = data.org || 'ISP Not Available';
+    document.getElementById('ispName').textContent = isp;
+  } catch (error) {
+    document.getElementById('ispName').textContent = 'Unable to detect ISP';
+  }
+}
+getISPName();
+
+// Connection Type (Wi-Fi vs Mobile)
+function getConnectionType() {
+  if (navigator.connection) {
+    const type = navigator.connection.type || 'Not Available';
+    document.getElementById('connectionType').textContent = type;
+  } else {
+    document.getElementById('connectionType').textContent = 'Not Available';
+  }
+}
+getConnectionType();
+
+// Browser Language
+function getBrowserLanguage() {
+  const language = navigator.language || 'Not Available';
+  document.getElementById('browserLanguage').textContent = language;
+}
+getBrowserLanguage();
+
+// Operating System
+function getOperatingSystem() {
+  const userAgent = navigator.userAgent;
+  let os = 'Unknown OS';
+  
+  if (/Windows NT/i.test(userAgent)) {
+    os = 'Windows';
+  } else if (/Mac OS X/i.test(userAgent)) {
+    os = 'macOS';
+  } else if (/Linux/i.test(userAgent)) {
+    os = 'Linux';
+  } else if (/Android/i.test(userAgent)) {
+    os = 'Android';
+  } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+    os = 'iOS';
+  }
+
+  document.getElementById('operatingSystem').textContent = os;
+}
+getOperatingSystem();
+
+// Device Orientation (Landscape / Portrait)
+function getDeviceOrientation() {
+  const orientation = window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait';
+  document.getElementById('deviceOrientation').textContent = orientation;
+  window.addEventListener('resize', function() {
+    const newOrientation = window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait';
+    document.getElementById('deviceOrientation').textContent = newOrientation;
+  });
+}
+getDeviceOrientation();
+
+// Screen DPI
+function getScreenDPI() {
+  const dpi = window.devicePixelRatio || 1;
+  document.getElementById('screenDPI').textContent = dpi;
+}
+getScreenDPI();
+
+// Internet Speed (Ping Test)
+async function getInternetSpeed() {
+  const startTime = performance.now();
+  const img = new Image();
+  img.src = 'https://www.gstatic.com/webp/gallery/1.jpg'; // A small image
+  img.onload = function() {
+    const endTime = performance.now();
+    const duration = endTime - startTime;
+    const ping = duration.toFixed(0) + ' ms';
+    document.getElementById('internetSpeed').textContent = ping;
+  };
+}
+getInternetSpeed();
+
+// Cookies Enabled
+function checkCookiesEnabled() {
+  document.getElementById('cookiesEnabled').textContent = navigator.cookieEnabled ? 'Enabled' : 'Disabled';
+}
+checkCookiesEnabled();
+
+ 
+// Advertised OS Version (Parsing User Agent)
+function getAdvertisedOSVersion() {
+  const userAgent = navigator.userAgent;
+  let osVersion = 'Unknown';
+
+  if (/Windows NT 10.0/i.test(userAgent)) {
+    osVersion = 'Windows 10';
+  } else if (/Windows NT 6.1/i.test(userAgent)) {
+    osVersion = 'Windows 7';
+  } else if (/Mac OS X (\d+_\d+)/i.test(userAgent)) {
+    osVersion = `macOS ${RegExp.$1.replace('_', '.')}`;
+  } else if (/Android (\d+(\.\d+)?)/i.test(userAgent)) {
+    osVersion = `Android ${RegExp.$1}`;
+  } else if (/iPhone OS (\d+_\d+)/i.test(userAgent)) {
+    osVersion = `iOS ${RegExp.$1.replace('_', '.')}`;
+  }
+
+  document.getElementById('advertisedDeviceOSVersion').textContent = osVersion;
+}
+getAdvertisedOSVersion();
+
+// Complete Device Name (Using User Agent or Custom Database)
+function getCompleteDeviceName() {
+  const userAgent = navigator.userAgent;
+  let deviceName = 'Unknown Device';
+
+  if (/iPhone/i.test(userAgent)) {
+    deviceName = 'Apple iPhone';
+  } else if (/iPad/i.test(userAgent)) {
+    deviceName = 'Apple iPad';
+  } else if (/Samsung/i.test(userAgent)) {
+    deviceName = 'Samsung Device';
+  } else if (/Pixel/i.test(userAgent)) {
+    deviceName = 'Google Pixel';
+  } else if (/Huawei/i.test(userAgent)) {
+    deviceName = 'Huawei Device';
+  } else if (/Xiaomi/i.test(userAgent)) {
+    deviceName = 'Xiaomi Device';
+  } else if (/Realme/i.test(userAgent)) {
+    deviceName = 'Realme Device';
+  } 
+
+  
+  document.getElementById('completeDeviceName').textContent = deviceName;
+}
+getCompleteDeviceName();
+
+// Max Image Height and Width
+function getMaxImageDimensions() {
+  const img = new Image();
+  img.src = 'https://via.placeholder.com/500x500';
+  img.onload = function () {
+    document.getElementById('maxImageHeight').textContent = `${img.height}px`;
+    document.getElementById('maxImageWidth').textContent = `${img.width}px`;
+  };
+  img.onerror = function () {
+    document.getElementById('maxImageHeight').textContent = 'Unable to detect';
+    document.getElementById('maxImageWidth').textContent = 'Unable to detect';
+  };
+}
+getMaxImageDimensions();
+
+// Advertised App Name (Using Meta Tags or Defaults)
+function getAdvertisedAppName() {
+  const appName = document.querySelector('meta[name="application-name"]')?.content || 'Unknown App';
+  document.getElementById('advertisedAppName').textContent = appName;
+}
+getAdvertisedAppName();
+
+// Release Date (Static Data or External API)
+function getReleaseDate() {
+  const userAgent = navigator.userAgent;
+  let releaseDate = 'Unknown';
+
+  if (/iPhone/i.test(userAgent)) {
+    releaseDate = '2007 (First iPhone)';
+  } else if (/Samsung/i.test(userAgent)) {
+    releaseDate = '2009 (First Galaxy)';
+  } else if (/Pixel/i.test(userAgent)) {
+    releaseDate = '2016 (First Google Pixel)';
+  } else if (/Huawei/i.test(userAgent)) {
+    releaseDate = '2010 (First Huawei Device)';
+  } else if (/Xiaomi/i.test(userAgent)) {
+    releaseDate = '2011 (First Xiaomi Device)';
+  }
+
+  document.getElementById('releaseDate').textContent = releaseDate;
+}
+getReleaseDate();
+
+
+function getBrowserInfo() {
+  const ua = navigator.userAgent;
+  const uaData = navigator.userAgentData; // Browser modern support
+  
+  let browserName = "Unknown";
+  let browserVersion = "Unknown";
+
+  // Check for modern userAgentData API
+  if (uaData) {
+    browserName = uaData.brands[0]?.brand || "Unknown";
+    browserVersion = uaData.brands[0]?.version || "Unknown";
+  } else {
+    // Legacy detection using userAgent
+    if (ua.includes("Firefox")) {
+      browserName = "Mozilla Firefox";
+      browserVersion = ua.match(/Firefox\/([\d.]+)/)?.[1] || "Unknown";
+    } else if (ua.includes("Edg")) {
+      browserName = "Microsoft Edge";
+      browserVersion = ua.match(/Edg\/([\d.]+)/)?.[1] || "Unknown";
+    } else if (ua.includes("Chrome")) {
+      browserName = "Google Chrome";
+      browserVersion = ua.match(/Chrome\/([\d.]+)/)?.[1] || "Unknown";
+    } else if (ua.includes("Safari") && !ua.includes("Chrome")) {
+      browserName = "Apple Safari";
+      browserVersion = ua.match(/Version\/([\d.]+)/)?.[1] || "Unknown";
+    } else if (ua.includes("Opera") || ua.includes("OPR")) {
+      browserName = "Opera";
+      browserVersion = ua.match(/Opera\/([\d.]+)|OPR\/([\d.]+)/)?.[1] || "Unknown";
+    } else if (ua.includes("Trident") || ua.includes("MSIE")) {
+      browserName = "Internet Explorer";
+      browserVersion = ua.match(/(MSIE\s|rv:)([\d.]+)/)?.[2] || "Unknown";
+    }
+  }
+
+  return { browserName, browserVersion, userAgent: ua };
+}
+
+function displayBrowserInfo() {
+  const { browserName, browserVersion, userAgent } = getBrowserInfo();
+  
+  document.getElementById("browserName").textContent = browserName;
+  document.getElementById("browserVersion").textContent = browserVersion;
+  document.getElementById("userAgent").textContent = userAgent;
+  
+  document.getElementById("doNotTrack").textContent =
+    navigator.doNotTrack === "1" || window.doNotTrack === "1" ? "Enabled" : "Disabled";
+
+  document.getElementById("cookiesEnabled").textContent = navigator.cookieEnabled ? "Yes" : "No";
+  document.getElementById("browserVendor").textContent = navigator.vendor || "Unknown";
+  
+  document.getElementById("browserEngine").textContent = /Gecko/.test(userAgent)
+    ? "Gecko (Mozilla)"
+    : /WebKit/.test(userAgent)
+    ? "WebKit (Safari/Chrome)"
+    : /Blink/.test(userAgent)
+    ? "Blink (Chrome/Opera)"
+    : /Trident/.test(userAgent)
+    ? "Trident (Internet Explorer)"
+    : "Unknown";
+}
+
+// Run detection on page load
+displayBrowserInfo();
+
+</script>
+</body>
+</html>
