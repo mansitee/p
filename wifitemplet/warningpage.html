@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Warning!</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <style>
+         body {
+         -webkit-font-smoothing: antialiased;
+         font-size: 100%;
+         margin: 0;
+         background-color: #ce3426;
+         }
+         .content {
+         color: rgba(255, 255, 255, 1);
+         font-size: calc(100% - 2px);
+         line-height: calc(100% + 6px);
+         min-width: 240px;
+         }
+         h1 {
+		 text-align: center;
+         color: rgba(255, 255, 255, 1);
+         font-size: calc(100% + 8px);
+         font-weight: 400;
+         line-height: calc(100% + 8px);
+         }
+         em {
+         color: white;
+         font-style: normal;
+         }
+         .learn-more-button {
+         color: rgb(123, 170, 247);
+         text-decoration: none;
+         }
+         /* Small font on small screens. */
+         @media (max-width: 240px),
+         (max-height: 320px) {
+         .content {
+         font-size: calc(100% - 4px);
+         line-height: calc(100% + 6px);
+         }
+         h1 {
+         font-size: calc(100% + 4px);
+         line-height: calc(100% + 4px);
+         }
+         }
+         /* Medium-sized icon on medium-sized screens. */
+         @media (max-height: 480px),
+         (max-width: 720px) {
+         .icon {
+         height: 72px;
+         width: 72px;
+         }
+         }
+         /* Very small icon on very small screens. */
+         @media (max-width: 720px) {
+         @media (max-width: 240px),
+         (max-height: 480px) {
+         .icon {
+         height: 48px;
+         width: 48px;
+         }
+         }
+         }
+         .content {
+         margin-left: auto;
+         margin-right: auto;
+         max-width: 600px;
+         }
+         .icon {
+         margin-left: auto;
+         margin-right: auto;
+         }
+         /* Align the two columns of bulletpoints next to each other. */
+         .bulletpoints {
+         float: left;
+         }
+         html[dir=rtl] .bulletpoints {
+         float: right;
+         }
+         .bulletpoints + .bulletpoints {
+         clear: right;
+         }
+         html[dir=rtl] .bulletpoints + .bulletpoints {
+         clear: left;
+         }
+         .clearer {
+         clear: both;
+         }
+         /* On narrow screens, align everything to the left. */
+         @media (max-width: 720px) {
+         .content {
+         max-width: 600px !important;  /* must override the rule set by JS which
+         * is only valid for width > 720px cases. */
+         text-align: start;
+         }
+         .bulletpoints + .bulletpoints,
+         html[dir=rtl] .bulletpoints + .bulletpoints {
+         clear: both;
+         }
+         }
+         .bulletpoints ul {
+         -webkit-padding-start: 16px;
+         margin: 4px 0 0;
+         }
+         /* Margins of floating elements don't collapse. The margin for bulletpoints
+         * will usually be provided by a neighboring element. */
+         .bulletpoints {
+         margin: 0;
+         }
+         .bulletpoints + .bulletpoints {
+         -webkit-margin-start: 40px;
+         }
+         .bulletpoints + .bulletpoints.too-wide {
+         -webkit-margin-start: 0;
+         margin-top: 1.5rem;
+         }
+         /* Wide screens. */
+         @media (min-width: 720px) {
+         .icon,
+         h1,
+         #subtitle,
+         .learn-more-button {
+         margin-bottom: 1.5rem;
+         margin-top: 1.5rem;
+         }
+         .content {
+         margin-top: 40px;
+         min-width: 240px;
+         padding: 8px 48px 24px;
+         }
+         .btn.btn-1.btn-1b {
+         /* text-align: right; */
+         float: right;
+         }
+         section.color-1 {
+         margin-top: 50px;
+         }
+         /* Snap the content box to the whole height on short screens. */
+         @media (max-height: 480px) {
+         html,
+         body,
+         .content {
+         height: 100%;
+         }
+         .content {
+         margin-bottom: 0;
+         margin-top: 0;
+         padding-bottom: 0;
+         padding-top: 0;
+         }
+         .icon {
+         margin-top: 0;
+         padding-top: 32px;  /* Define the top offset through the icon's padding,
+         * otherwise the screen height would be 100% + 32px */
+         }
+         }
+         /* Smaller vertical margins on very short screens. */
+         @media (max-height: 320px) {
+         h1,
+         #subtitle,
+         .learn-more-button {
+         margin-bottom: 16px;
+         margin-top: 16px;
+         }
+         .icon {
+         margin-bottom: 16px;
+         }
+         }
+         }
+         /* Narrow screens */
+         @media (max-width: 720px) {
+         .content {
+         padding: 60px 32px;
+         min-width: 176px;
+         }
+         /* The two columns of bulletpoints are moved under each other. */
+         .bulletpoints + .bulletpoints {
+         -webkit-margin-start: 0;
+         margin-top: 1.5rem;
+         }
+         /* Smaller offsets on smaller screens. */
+         @media (max-height: 600px) {
+         .content {
+         padding-top: 48px;
+         }
+         .icon,
+         h1,
+         #subtitle,
+         .learn-more-button {
+         margin-bottom: 1rem;
+         margin-top: 1rem;
+         }
+         .bulletpoints + .bulletpoints {
+         margin-top: 1rem;
+         }
+         }
+         /* Small top offset on very small screens. */
+         @media (max-height: 480px) {
+         .content {
+         padding-top: 32px;
+         }
+         }
+         /* Undo the first and last elements margins. */
+         .icon {
+         margin-top: 0;
+         }
+         .learn-more-button {
+         margin-bottom: 0;
+         }
+         }
+         /* Very narrow screens. */
+         @media (max-width: 320px) {
+			.content {
+				padding: 50px 15px;
+			}
+		 }
+         @media (max-width: 240px) {
+         .content {
+         min-width: 192px;
+         padding-left: 24px;
+         padding-right: 24px;
+         }
+         }
+		 .btn-parent{
+		 display: flex;
+			justify-content: space-between;
+		}
+		 .btn-1a {
+			text-decoration: none;
+			padding-top: 8px;
+			color: #fff;
+         }
+         .btn.btn-1.btn-1b {
+         background: #ffffff;
+         border: solid 1px #fff;
+		 padding: 8px 20px;
+         color: #b32c20;
+         text-decoration: none;
+         }
+         h1,
+         #subtitle,
+         .learn-more-button {
+         margin-bottom: 2rem;
+         margin-top: 1.5rem;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="content">
+		  <div class="icon">
+			 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+				width="64" height="64"
+				viewBox="0 0 252 252"
+				style="fill:#000000;">
+				<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+				   <path d="M0,252v-252h252v252z" fill="none"></path>
+				   <g id="Layer_1">
+					  <g>
+						 <g fill="#ffffff">
+							<g>
+							   <g>
+								  <g>
+									 <g>
+										<g>
+										   <g>
+											  <path d="M248.11172,126c0,-67.42969 -54.68203,-122.11172 -122.11172,-122.11172c-67.42969,0 -122.11172,54.68203 -122.11172,122.11172c0,67.42969 54.68203,122.11172 122.11172,122.11172c67.42969,0 122.11172,-54.68203 122.11172,-122.11172z"></path>
+										   </g>
+										</g>
+									 </g>
+								  </g>
+							   </g>
+							</g>
+						 </g>
+						 <g fill="#e74c3c">
+							<path d="M140.27344,126l35.68359,-41.44219c3.88828,-4.52813 3.39609,-11.32031 -1.13203,-15.25781c-4.52812,-3.88828 -11.32031,-3.39609 -15.20859,1.13203l-33.61641,39.03047l-33.56719,-38.98125c-3.88828,-4.52812 -10.72969,-5.02031 -15.25781,-1.13203c-4.52813,3.88828 -5.02031,10.72969 -1.13203,15.25781l35.68359,41.39297l-35.68359,41.44219c-3.88828,4.52812 -3.39609,11.32031 1.13203,15.25781c2.01797,1.77188 4.52812,2.60859 7.03828,2.60859c3.05156,0 6.05391,-1.27969 8.17031,-3.74063l33.56719,-38.98125l33.56719,38.98125c2.11641,2.46094 5.16797,3.74063 8.17031,3.74063c2.51016,0 5.02031,-0.83672 7.03828,-2.60859c4.52812,-3.88828 5.02031,-10.72969 1.13203,-15.25781z"></path>
+						 </g>
+					  </g>
+				   </g>
+				</g>
+			 </svg>
+		 </div>
+         <h1>ATTENTION!</h1>
+         <p id="subtitle">
+            <span>The site you are attempting to visit is deceptive and might trick you into installing malicious software or steal your personal information (i.e. passwords, credit cards, phone numbers, etc.).</span>
+         </p>
+         <section class="color-1">
+            <p class="btn-parent">
+               <a href="browser:addToMalwareWhiteList#CONTINUE_TO_PAGE_URL#" class="btn-1a">Continue anyway</a>
+               <a href="browser:goback" class="btn btn-1 btn-1b">Keep me safe</a>
+            </p>
+         </section>
+      </div>
+   </body>
+</html>
